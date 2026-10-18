@@ -1,0 +1,26 @@
+{
+  "name": "AIR LOUNGE & BAR",
+  "showPhotos": false,
+  "wifi": {
+    "show": true,
+    "name": "AirLounge",
+    "password": "air@2023"
+  },
+  "socials": [
+    {
+      "type": "instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/airbarlounge/"
+    },
+    {
+      "type": "google",
+      "label": "Google Maps",
+      "url": "https://maps.app.goo.gl/VGhTeWzZPt54jdEZ7"
+    },
+    {
+      "type": "yandex",
+      "label": "Яндекс Карты",
+      "url": "https://yandex.com/maps/-/CXB-VC1l"
+    }
+  ]
+}

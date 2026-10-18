@@ -1,0 +1,321 @@
+/* ==========================================================================
+   ВСЕ ЦВЕТА И ШРИФТЫ — ЗДЕСЬ. Чтобы сменить стиль сайта, меняйте только этот блок.
+   Палитра «Warm Graphite» (графит + тёплый серо-бежевый). Фон-картинка — assets/bg.webp.
+   ========================================================================== */
+:root {
+  /* Палитра «Warm Graphite»: графит + тёплый серо-бежевый. Текст белый. */
+  --bg: #232323;              /* основной фон (#252525 из палитры, чуть глубже) */
+  --wine: #41403e;            /* карточки / тёплый графит */
+  --terracotta: #5a5650;      /* светлее графита */
+  --amber: #c5bbaa;           /* светлый акцент: цены, активные надписи */
+  --accent: #a99d8b;          /* акцент палитры: активная кнопка, линии */
+  --amber-soft: rgba(169,157,139,.14);
+  --wood: #303030;            /* вторичный фон */
+  --text: #f7f6f3;            /* текст — белый */
+  --muted: rgba(255,255,255,.62);
+  --faint: rgba(255,255,255,.12);
+  --card: rgba(255,255,255,.045);
+  --card-line: rgba(255,255,255,.09);
+  --item-bg: rgba(255,255,255,.009);  /* подложка карточек позиций и акций (почти прозрачная) */
+  --item-line: rgba(255,255,255,.065);
+
+  --font: "Spectral", "Noto Sans Georgian", Georgia, serif;           /* весь текст меню */
+  --serif: "Spectral", "Noto Serif Georgian", Georgia, serif;          /* крупные заголовки */
+  --logo: "Cormorant Garamond", "Noto Serif Georgian", Georgia, serif; /* название в шапке и на заставке */
+  --radius: 18px;
+  --photo: 64px;
+  --tabbar-h: 66px;
+}
+/* ========================================================================== */
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--bg); overflow-x: clip; overscroll-behavior-y: none; }
+body {
+  margin: 0; min-height: 100vh;
+  /* Короткие вкладки (Кальян, Снэки) почти помещаются в экран. Долистали до конца — Safari прячет
+     свою панель, экран становится выше, прокручивать уже нечего — панель возвращается — и так по кругу:
+     страница «трясётся». Поэтому страница всегда заметно выше самого большого экрана. */
+  min-height: calc(100lvh + 120px);
+  color: var(--text); font-family: var(--font); font-size: 16px; line-height: 1.45;
+  padding-bottom: calc(var(--tabbar-h) + 40px + env(safe-area-inset-bottom));
+  -webkit-tap-highlight-color: transparent;
+}
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+a { color: inherit; }
+
+/* ---------- фон ----------
+   Одна готовая картинка: телефону не нужно ничего пересчитывать при прокрутке.
+   100lvh — высота экрана, когда панель Safari спрятана, чтобы снизу не было пустой полосы. */
+.bg {
+  position: fixed; left: 0; top: 0; width: 100%; height: 100vh; height: 100lvh; z-index: -1;
+  /* два слоя: сверху тонкие линии (вектор — всегда чёткие), под ними картинка с дымкой и складками */
+  background: url("bg-lines.svg?v=8") center top / cover no-repeat,
+              url("bg.webp?v=6") center top / cover no-repeat var(--bg);
+  transform: translateZ(0);
+}
+/* на широких экранах (компьютер) — отдельная горизонтальная картинка, чтобы не растягивать телефонную */
+@media (min-aspect-ratio: 1/1) { .bg { background-image: url("bg-wide-lines.svg?v=8"), url("bg-wide.webp?v=6"); background-position: center, center; } }
+
+/* ---------- шапка ---------- */
+.topbar {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 10px;
+  padding: calc(14px + env(safe-area-inset-top)) 10px 6px 16px;
+}
+/* низ букв названия — на одной линии с низом букв RU EN GE TR; значок — по центру высоты букв */
+.brand { display: flex; align-items: center; gap: 9px; min-width: 0; padding-bottom: 3.9px; }
+/* значок пламени из логотипа; цвет берётся из текста (маска), картинка — assets/flame.png */
+.brand-mark {
+  flex: none; width: 25px; height: 34px; background: currentColor; transform: translateY(-.7px);
+  -webkit-mask: url("flame.png?v=1") center / contain no-repeat; mask: url("flame.png?v=1") center / contain no-repeat;
+}
+.brand-name .amp { margin: 0 .16em 0 .118em; }
+.brand-name { font-family: var(--logo); font-weight: 600; font-size: clamp(14px, 4.35vw, 17px); letter-spacing: .09em; line-height: 1; white-space: nowrap; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.langs { display: flex; flex: none; }
+.langs button {
+  position: relative; min-width: 31px; height: 40px;
+  font-size: 13px; letter-spacing: .08em; color: var(--muted); transition: color .2s;
+}
+.langs button[aria-pressed="true"] { color: var(--amber); }
+.langs button[aria-pressed="true"]::after {
+  content: ""; position: absolute; left: 7px; right: 7px; bottom: 7px; height: 1.5px;
+  background: var(--amber); border-radius: 1px;
+}
+
+/* ---------- заголовок вкладки ---------- */
+.hero { text-align: center; padding: 26px 16px 14px; }
+.hero h1 {
+  margin: 0; display: inline-block; white-space: nowrap; font-family: var(--serif); font-weight: 500;
+  font-size: clamp(38px, 12vw, 56px); line-height: 1; letter-spacing: .14em; text-transform: uppercase;
+  padding-left: .14em; /* компенсирует пробел после последней буквы — слово стоит ровно по центру */
+}
+.hero span { display: block; margin-top: 4px; font-family: var(--serif); font-style: italic; font-size: 26px; color: var(--muted); }
+.hero::after {
+  content: ""; display: block; width: 62%; max-width: 360px; height: 1px; margin: 18px auto 0;
+  background: linear-gradient(90deg, transparent, var(--amber), transparent);
+}
+
+/* ---------- чипсы разделов ---------- */
+.chips {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+  padding: 4px 16px 8px; margin-top: 4px;
+  --stuck: 0;           /* 0 → 1 плавно при прокрутке, меняет app.js */
+}
+/* подложка под лентой: появляется постепенно, без рывка */
+.chips-wrap { position: sticky; top: 0; z-index: 20; }
+.chips-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  opacity: var(--stuck, 0);
+  background: rgba(35,35,35,.72);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3); backdrop-filter: blur(16px) saturate(1.3);
+  box-shadow: 0 1px 0 var(--faint);
+}
+.chips-wrap .chips { position: relative; z-index: 1; margin-top: 0; }
+.chips::-webkit-scrollbar { display: none; }
+@media (hover: hover) { .chips { cursor: grab; user-select: none; } .chips:active { cursor: grabbing; } }
+.chips[hidden] { display: none; }
+.chip {
+  flex: none; height: 38px; padding: 0 16px; border-radius: 19px;
+  background: var(--card); border: 1px solid var(--card-line);
+  font-size: 14px; color: var(--muted); white-space: nowrap; transition: all .2s;
+}
+.chip.active { color: #1d1d1d; background: var(--accent); border-color: var(--accent); font-weight: 600; }
+
+/* ---------- разделы ---------- */
+.content { padding: 0 16px 8px; max-width: 720px; margin: 0 auto; }
+.section { padding-top: 26px; scroll-margin-top: 64px; }
+.section-title {
+  display: flex; align-items: center; gap: 14px; margin: 0 0 14px;
+  font-family: var(--serif); font-weight: 600; font-size: 23px; line-height: 1.15; letter-spacing: .03em; color: var(--text);
+}
+.section-title::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, rgba(169,157,139,.5), transparent); }
+.section-note { margin: -6px 0 14px; font-size: 13.5px; color: var(--muted); }
+
+/* ---------- карточка позиции ---------- */
+.items { display: grid; gap: 8px; }
+.item {
+  display: flex; gap: 12px; align-items: center;
+  background: var(--item-bg); border: 1px solid var(--item-line); border-radius: 14px; padding: 5px 9px 5px 5px;
+}
+.photo {
+  flex: none; width: var(--photo); height: var(--photo); border-radius: 10px; overflow: hidden;
+  display: grid; place-items: center; color: var(--amber);
+  background: radial-gradient(circle at 30% 25%, rgba(169,157,139,.22), transparent 60%),
+              linear-gradient(145deg, rgba(65,64,62,.55), rgba(48,48,48,.45));
+  border: 1px solid rgba(169,157,139,.14);
+}
+.photo svg { width: 40%; height: 40%; opacity: .75; }
+.photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+button.photo { cursor: zoom-in; }
+.item-body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; padding-right: 4px; }
+.item-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.item-name { font-size: 15.5px; font-weight: 500; line-height: 1.25; }
+.item-price { flex: none; font-size: 15.5px; font-weight: 600; color: var(--amber); white-space: nowrap; }
+.item-desc { font-size: 13px; line-height: 1.35; color: var(--muted); }
+.item-amount { font-size: 12px; color: var(--muted); }
+.variants { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.variant { display: inline-flex; gap: 6px; align-items: baseline; padding: 3px 9px; border-radius: 9px; background: var(--faint); font-size: 13px; }
+.variant b { color: var(--amber); font-weight: 600; }
+.vrows { display: grid; gap: 2px; margin-top: 2px; }
+.vrow { display: flex; align-items: baseline; font-size: 14px; color: var(--muted); }
+.vrow .lead { display: block; flex: 1 1 24px; min-width: 24px; margin: 0 8px; border-bottom: 1px dotted rgba(169,157,139,.35); transform: translateY(-4px); }
+.vrow b { color: var(--amber); font-weight: 600; font-size: 15.5px; }
+.vrow .vamt { font-style: normal; font-size: 12.5px; margin-left: 6px; opacity: .8; }
+
+/* ---------- конструктор коктейля ---------- */
+.builder { background: var(--card); border: 1px solid var(--card-line); border-radius: var(--radius); padding: 16px; margin-bottom: 10px; }
+.builder .item-desc { margin: 2px 0 14px; }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.step { display: flex; gap: 12px; align-items: center; }
+.step-num {
+  flex: none; width: 28px; height: 28px; border-radius: 50%;
+  border: 1px solid rgba(169,157,139,.5); color: var(--amber);
+  display: grid; place-items: center; font-size: 13px; font-weight: 600;
+}
+.step-title { font-weight: 500; font-size: 15px; }
+.step-options { font-size: 14px; color: var(--muted); }
+
+/* ---------- акции ---------- */
+.promo { display: flex; gap: 14px; align-items: center; background: var(--item-bg); border: 1px solid var(--item-line); border-radius: var(--radius); padding: 16px; }
+.promo-icon {
+  flex: none; width: 48px; height: 48px; border-radius: 14px; color: var(--amber);
+  display: grid; place-items: center;
+  background: linear-gradient(145deg, rgba(65,64,62,.6), rgba(48,48,48,.5)); border: 1px solid rgba(169,157,139,.18);
+}
+.promo-icon svg { width: 24px; height: 24px; }
+.promo-title { font-weight: 500; font-size: 17px; margin-bottom: 4px; }
+.promo-text { font-size: 14px; color: var(--muted); }
+
+/* ---------- подвал ---------- */
+.footer { max-width: 720px; margin: 0 auto; padding: 30px 16px 24px; text-align: center; color: var(--muted); font-size: 13px; }
+.footer p { margin: 0 0 10px; }
+.footer .rule { font-weight: 500; color: var(--text); }
+.wifi { display: inline-flex; gap: 10px; flex-wrap: wrap; justify-content: center; padding: 9px 16px; border-radius: 14px; background: var(--card); border: 1px solid var(--card-line); margin: 6px 0 20px; }
+.wifi b { color: var(--text); font-weight: 600; }
+.socials { display: flex; justify-content: center; gap: 12px; margin-top: 8px; }
+.socials a {
+  width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; color: var(--text);
+  background: var(--card); border: 1px solid var(--card-line);
+}
+.socials a.empty { opacity: .35; pointer-events: none; }
+.socials svg { width: 22px; height: 22px; }
+
+/* ==========================================================================
+   НИЖНИЕ ВКЛАДКИ — «ЖИДКОЕ СТЕКЛО»
+   ========================================================================== */
+.tabbar {
+  position: fixed; z-index: 30;
+  left: 12px; right: 12px; bottom: max(10px, calc(env(safe-area-inset-bottom) - 12px));
+  transition: bottom .35s ease;
+  max-width: 520px; margin: 0 auto; height: var(--tabbar-h);
+  border-radius: 999px; padding: 6px;
+  /* само стекло: размытие + усиление цвета того, что под ним */
+  background: linear-gradient(180deg, rgba(255,255,255,.13), rgba(255,255,255,.05));
+  -webkit-backdrop-filter: blur(22px) saturate(1.8) brightness(1.05);
+  backdrop-filter: blur(22px) saturate(1.8) brightness(1.05);
+  /* блики по краю и мягкая тень */
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    inset 0 -1px 0 rgba(255,255,255,.08),
+    inset 0 0 0 1px rgba(255,255,255,.10),
+    inset 0 10px 18px -12px rgba(255,255,255,.35),
+    0 12px 32px rgba(0,0,0,.45);
+  overflow: hidden;
+}
+/* блик-«отражение» в верхней части стекла */
+.tabbar::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(120% 70% at 30% -10%, rgba(255,255,255,.22), transparent 55%);
+}
+/* в Chrome/Android — настоящее преломление того, что за стеклом */
+.refract .tabbar {
+  backdrop-filter: url(#liquid) blur(14px) saturate(1.8) brightness(1.05);
+}
+.tabs { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(var(--n, 4), 1fr); height: 100%; }
+.tab {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  color: var(--muted); font-size: 11.5px; letter-spacing: .03em; text-decoration: none;
+  transition: color .3s; min-width: 0;
+}
+.tab span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0 4px; }
+.tab svg { width: 23px; height: 23px; transition: transform .35s cubic-bezier(.3,1.6,.5,1); }
+.tab[aria-current="page"] { color: var(--amber); }
+.tab[aria-current="page"] svg { transform: scale(1.08); }
+/* «линза» под активной вкладкой, переезжает с упругостью */
+.lens {
+  position: absolute; z-index: 0; top: 6px; bottom: 6px; left: 6px;
+  width: calc((100% - 12px) / var(--n, 4));
+  border-radius: 999px;
+  transform: translateX(calc(100% * var(--i, 0)));
+  transition: transform .5s cubic-bezier(.32,1.35,.45,1);
+  background: linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.07));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.45),
+    inset 0 0 0 1px rgba(255,255,255,.14),
+    inset 0 -6px 12px -6px rgba(169,157,139,.35),
+    0 4px 14px rgba(0,0,0,.25);
+}
+
+/* ---------- просмотр фото ---------- */
+.viewer {
+  position: fixed; inset: 0; z-index: 50; background: rgba(12,12,12,.9);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px;
+}
+.viewer[hidden] { display: none; }
+.viewer img { max-width: 100%; max-height: 80vh; border-radius: 14px; }
+.viewer-caption { color: var(--text); margin-top: 12px; font-family: var(--serif); font-size: 22px; }
+.viewer-close { position: absolute; top: calc(12px + env(safe-area-inset-top)); right: 12px; width: 48px; height: 48px; font-size: 32px; color: var(--text); }
+
+/* ---------- заставка ---------- */
+.loading {
+  position: fixed; inset: 0; z-index: 60; background: var(--bg);
+  display: grid; place-items: center; transition: opacity .5s;
+}
+.loading-box { display: flex; flex-direction: column; align-items: center; gap: 26px; }
+/* большой значок пламени над названием, того же цвета */
+.loading-mark {
+  display: block; width: 66px; height: 92px; background: var(--amber);
+  -webkit-mask: url("flame-big.png?v=1") center / contain no-repeat; mask: url("flame-big.png?v=1") center / contain no-repeat;
+}
+/* padding-left = letter-spacing: иначе последний пробел-разрядка сдвигает надпись влево */
+.loading span { font-family: var(--logo); font-size: 22px; letter-spacing: .3em; padding-left: .3em; color: var(--amber); white-space: nowrap; }
+.loading.done { opacity: 0; pointer-events: none; }
+
+/* ---------- появление при смене вкладки ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .content.fade, .hero.fade { animation: fade .4s ease-out; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+}
+/* карточки ниже экрана плавно проявляются при прокрутке */
+@media (prefers-reduced-motion: no-preference) {
+  .pre { opacity: 0; transform: translateY(14px); }
+  .shown { transition: opacity .55s ease, transform .55s cubic-bezier(.2,.7,.2,1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lens, .tab svg { transition: none; }
+}
+
+@media (min-width: 600px) {
+  :root { --photo: 76px; }
+}
+.chips-wrap[hidden] { display: none; }
+
+/* отступ между лентой разделов и первым разделом — компактный */
+.content > .section:first-child { padding-top: 7px; }
+/* вкладка с одним разделом (Кальян, Снэки): без линии и пустого места под заголовком */
+.hero.single { padding-bottom: 0; }
+.hero.single::after { display: none; }
+.hero.single + .chips-wrap + .content > .section:first-child { padding-top: 10px; }
+
+/* ---------- вид без фото (галочка «Показывать фото позиций» выключена) ----------
+   название — пунктир — цена, как в классическом меню; состав ниже */
+.lead { display: none; }
+.no-photos .item { padding: 11px 14px; }
+.no-photos .item-body { padding-right: 0; gap: 3px; }
+.no-photos .item-head { align-items: baseline; gap: 0; }
+.no-photos .item-name { flex: 0 1 auto; }
+.no-photos .lead {
+  display: block; flex: 1 1 24px; min-width: 24px; margin: 0 8px;
+  border-bottom: 1px dotted rgba(169,157,139,.35); transform: translateY(-4px);
+}

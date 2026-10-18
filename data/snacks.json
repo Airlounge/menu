@@ -1,0 +1,137 @@
+{
+  "id": "snacks",
+  "icon": "snack",
+  "title": {
+    "ru": "Снэки",
+    "en": "Snacks",
+    "ka": "სნექები",
+    "tr": "Atıştırmalık"
+  },
+  "menuLabel": false,
+  "sections": [
+    {
+      "id": "snacks",
+      "icon": "snack",
+      "layout": "list",
+      "title": {
+        "ru": "Снэки",
+        "en": "Snacks",
+        "ka": "წასახემსებელი",
+        "tr": "Atıştırmalıklar"
+      },
+      "note": {
+        "ru": "",
+        "en": "",
+        "ka": "",
+        "tr": ""
+      },
+      "items": [
+        {
+          "id": "jerky",
+          "name": {
+            "ru": "Джерки",
+            "en": "Jerky",
+            "ka": "ჯერკი",
+            "tr": "Jerky"
+          },
+          "desc": {
+            "ru": "куриные, свиные",
+            "en": "chicken, pork",
+            "ka": "ქათმის, ღორის",
+            "tr": "tavuk, domuz"
+          },
+          "price": 15,
+          "amount": 50,
+          "unit": "g",
+          "photo": "",
+          "hidden": false,
+          "variants": []
+        },
+        {
+          "id": "nuts",
+          "name": {
+            "ru": "Орешки",
+            "en": "Nuts",
+            "ka": "თხილეული",
+            "tr": "Kuruyemiş"
+          },
+          "desc": {
+            "ru": "",
+            "en": "",
+            "ka": "",
+            "tr": ""
+          },
+          "price": null,
+          "amount": null,
+          "unit": null,
+          "photo": "",
+          "hidden": false,
+          "variants": [
+            {
+              "label": {
+                "ru": "Арахис",
+                "en": "Peanuts",
+                "ka": "არაქისი",
+                "tr": "Yer fıstığı"
+              },
+              "amount": 100,
+              "unit": "g",
+              "price": 7
+            },
+            {
+              "label": {
+                "ru": "Фисташки",
+                "en": "Pistachios",
+                "ka": "ფისტა",
+                "tr": "Antep fıstığı"
+              },
+              "amount": 80,
+              "unit": "g",
+              "price": 13
+            }
+          ]
+        },
+        {
+          "id": "chips",
+          "name": {
+            "ru": "Чипсы",
+            "en": "Chips",
+            "ka": "ჩიფსები",
+            "tr": "Cips"
+          },
+          "desc": {
+            "ru": "по ассортименту",
+            "en": "assorted",
+            "ka": "ასორტიმენტში",
+            "tr": "çeşitli"
+          },
+          "price": 8,
+          "amount": 75,
+          "unit": "g",
+          "photo": "",
+          "hidden": false
+        },
+        {
+          "id": "croutons",
+          "name": {
+            "ru": "Сухарики",
+            "en": "Croutons",
+            "ka": "სუხარიკები",
+            "tr": "Kıtır ekmek"
+          },
+          "desc": {
+            "ru": "по ассортименту",
+            "en": "assorted",
+            "ka": "ასორტიმენტში",
+            "tr": "çeşitli"
+          },
+          "price": 8,
+          "amount": 100,
+          "unit": "g",
+          "photo": "",
+          "hidden": false
+        }
+      ]
+    }
+  ]
+}

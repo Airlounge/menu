@@ -17,7 +17,7 @@
     soda: '<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M7 7h10M7 17h10"/>',
     tea: '<path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h1a3 3 0 0 1 0 6h-1"/><path d="M8 3v3M12 3v3"/>',
     milkshake: '<path d="M7 8h10l-1.5 13h-7z"/><path d="M6 8a6 4 0 0 1 12 0"/><path d="M13 4l2-2"/>',
-    snack: '<path d="M4 10h16l-2 10H6z"/><path d="M7 10c0-3 2-6 5-6s5 3 5 6"/>',
+    snack: '<path d="M3 12h18a9 7 0 0 1-18 0z"/><path d="M7 19.5h10"/><circle cx="8" cy="9.6" r="1.6"/><circle cx="11.6" cy="8.6" r="1.6"/><circle cx="15.2" cy="9.6" r="1.6"/><circle cx="13.4" cy="6" r="1.4"/>',
     gift: '<rect x="3" y="8" width="18" height="5" rx="1"/><path d="M5 13v8h14v-8M12 8v13"/><path d="M12 8c-2 0-5-1-5-3s3-2 5 3c2-5 5-5 5-3s-3 3-5 3"/>',
     cake: '<path d="M4 21h16M5 21v-7h14v7"/><path d="M5 17c2 1 3-1 4.7 0s2.6 1 4.6 0 3 1 4.7 0"/><path d="M12 14v-4M12 7a1 1 0 0 0 1-1c0-1-1-2-1-2s-1 1-1 2a1 1 0 0 0 1 1z"/>',
     star: '<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>',

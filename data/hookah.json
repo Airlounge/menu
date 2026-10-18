@@ -124,30 +124,6 @@
           "variants": [],
           "photo": "",
           "hidden": false
-        },
-        {
-          "id": "dbac7643a96a",
-          "name": {
-            "ru": "кальян для сани",
-            "en": "",
-            "ka": "",
-            "tr": "",
-            "auto": ""
-          },
-          "desc": {
-            "ru": "1",
-            "en": "",
-            "ka": "",
-            "tr": "",
-            "auto": ""
-          },
-          "price": 9999,
-          "priceFrom": true,
-          "amount": null,
-          "unit": "",
-          "variants": [],
-          "photo": "",
-          "hidden": false
         }
       ]
     }

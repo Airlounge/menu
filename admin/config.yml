@@ -6,6 +6,8 @@ backend:
   name: github
   repo: Airlounge/menu
   branch: main
+  # вход кнопкой «Sign In with GitHub» через посредника в Cloudflare (аккаунт airloungebatumi)
+  base_url: https://sveltia-cms-auth.airlounge-loyalty.workers.dev
   commit_messages:
     update: "Админка: изменено «{{slug}}»"
     uploadMedia: "Админка: загружено фото {{path}}"

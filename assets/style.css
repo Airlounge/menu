@@ -319,3 +319,45 @@ button.photo { cursor: zoom-in; }
   display: block; flex: 1 1 24px; min-width: 24px; margin: 0 8px;
   border-bottom: 1px dotted rgba(169,157,139,.35); transform: translateY(-4px);
 }
+
+/* ==========================================================================
+   СТРАНИЦА «О НАС»
+   ========================================================================== */
+.tab-flame {
+  display: block; width: 18px; height: 24px; background: currentColor;
+  -webkit-mask: url("flame.png?v=1") center / contain no-repeat; mask: url("flame.png?v=1") center / contain no-repeat;
+  transition: transform .35s cubic-bezier(.3,1.6,.5,1);
+}
+.tab[aria-current="page"] .tab-flame { transform: scale(1.08); }
+
+.about { display: grid; gap: 14px; padding-top: 14px; }
+.welcome { text-align: center; padding: 6px 8px 10px; }
+.welcome-mark {
+  display: block; width: 46px; height: 64px; margin: 0 auto 16px; background: var(--amber);
+  -webkit-mask: url("flame-big.png?v=1") center / contain no-repeat; mask: url("flame-big.png?v=1") center / contain no-repeat;
+}
+.welcome h2 { margin: 0 0 10px; font-family: var(--serif); font-weight: 500; font-size: 23px; line-height: 1.25; letter-spacing: .02em; }
+.welcome p { margin: 0 auto; max-width: 30em; font-size: 15.5px; line-height: 1.55; color: var(--muted); }
+
+.info-card { background: var(--item-bg); border: 1px solid var(--item-line); border-radius: var(--radius); padding: 4px 16px; }
+.info-row { display: flex; gap: 14px; align-items: flex-start; padding: 13px 0; }
+.info-row + .info-row { border-top: 1px solid var(--faint); }
+.info-row > svg { flex: none; width: 22px; height: 22px; color: var(--amber); margin-top: 2px; }
+.info-label { font-size: 12.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.info-value { font-size: 16.5px; margin-top: 2px; }
+.info-value a { text-decoration: none; border-bottom: 1px dotted rgba(197,187,170,.5); }
+.wifi-pass {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 8px; padding: 8px 12px;
+  border-radius: 12px; background: var(--faint); font-size: 15px; color: var(--text);
+}
+.wifi-pass b { color: var(--amber); font-weight: 600; letter-spacing: .02em; }
+.wifi-pass svg { width: 17px; height: 17px; color: var(--muted); }
+.info-hint { font-size: 12.5px; color: var(--muted); margin-top: 6px; transition: color .2s; }
+.info-hint.ok { color: var(--amber); }
+
+.age { display: flex; gap: 14px; align-items: center; background: var(--item-bg); border: 1px solid var(--item-line); border-radius: var(--radius); padding: 16px; }
+.age-badge {
+  flex: none; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center;
+  border: 1.5px solid var(--amber); color: var(--amber); font-weight: 600; font-size: 16px;
+}
+.welcome .nowrap { white-space: nowrap; }

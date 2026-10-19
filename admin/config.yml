@@ -134,6 +134,76 @@ collections:
     icon: restaurant_menu
     format: json
     files:
+      - name: about
+        label: "О нас"
+        file: data/about.json
+        fields:
+          - { name: id, widget: hidden }
+          - { name: icon, widget: hidden }
+          - { name: layout, widget: hidden }
+          - { name: menuLabel, widget: hidden }
+          - { name: sections, widget: hidden }
+          - { name: title, label: "Название вкладки", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs }
+          - { name: tabLabel, label: "Подпись на нижней кнопке", hint: "Короткая, чтобы помещалась", widget: object, collapsed: true, summary: "{{fields.ru}}", fields: *langs }
+          - name: welcome
+            label: "Приветствие"
+            widget: object
+            collapsed: true
+            summary: "{{fields.title.ru}}"
+            fields:
+              - { name: title, label: "Заголовок", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs }
+              - { name: text, label: "Текст", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs_text }
+          - name: features
+            label: "Что у нас есть"
+            label_singular: "пункт"
+            widget: list
+            allow_duplicate: false
+            collapsed: true
+            summary: "{{fields.title.ru}}"
+            fields:
+              - name: icon
+                label: "Значок"
+                widget: select
+                default: gamepad
+                options:
+                  - { label: "Геймпад", value: gamepad }
+                  - { label: "Кубик", value: dice }
+                  - { label: "Кальян", value: hookah }
+                  - { label: "Коктейль", value: cocktail }
+                  - { label: "Звезда", value: star }
+                  - { label: "Подарок", value: gift }
+                  - { label: "Корона", value: crown }
+              - { name: title, label: "Заголовок", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs }
+              - { name: text, label: "Текст", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs_text }
+          - name: hours
+            label: "Время работы"
+            hint: "Если пусто — строка на сайте не показывается"
+            widget: object
+            collapsed: true
+            summary: "{{fields.value.ru}}"
+            fields:
+              - { name: label, label: "Подпись", widget: object, collapsed: true, summary: "{{fields.ru}}", fields: *langs }
+              - { name: value, label: "Часы", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs }
+          - name: address
+            label: "Адрес"
+            hint: "Нажатие открывает Google Maps (ссылка — в «Wi-Fi и соцсети»)"
+            widget: object
+            collapsed: true
+            summary: "{{fields.value.ru}}"
+            fields:
+              - { name: label, label: "Подпись", widget: object, collapsed: true, summary: "{{fields.ru}}", fields: *langs }
+              - { name: value, label: "Адрес", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs }
+          - { name: wifiHint, label: "Подсказка под паролем Wi-Fi", hint: "Сам Wi-Fi — в «Настройки сайта → Wi-Fi и соцсети»", widget: object, collapsed: true, summary: "{{fields.ru}}", fields: *langs }
+          - { name: copied, label: "Сообщение «Пароль скопирован»", widget: object, collapsed: true, summary: "{{fields.ru}}", fields: *langs }
+          - name: age
+            label: "Ограничение 18+"
+            widget: object
+            collapsed: true
+            summary: "{{fields.title.ru}}"
+            fields:
+              - { name: title, label: "Заголовок", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs }
+              - { name: text, label: "Текст", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs_text }
+
       - name: hookah
         label: "Кальян"
         file: data/hookah.json
@@ -202,6 +272,7 @@ collections:
           - { name: icon, widget: hidden }
           - { name: title, label: "Название вкладки", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs }
           - { name: menuLabel, label: "Подпись «Меню» под заголовком", widget: boolean, default: true, required: false }
+          - { name: tabLabel, label: "Подпись на нижней кнопке", hint: "Короткая, чтобы помещалась", widget: object, collapsed: true, summary: "{{fields.ru}}", fields: *langs }
           - { name: sections, label: "Разделы", label_singular: "раздел", widget: list, allow_duplicate: false, collapsed: true, summary: "{{fields.title.ru}}   {{fields.title.auto}}", fields: *section_fields }
 
       - name: promo
@@ -212,6 +283,7 @@ collections:
           - { name: icon, widget: hidden }
           - { name: title, label: "Название вкладки", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs }
           - { name: menuLabel, label: "Подпись «Меню» под заголовком", widget: boolean, default: true, required: false }
+          - { name: tabLabel, label: "Подпись на нижней кнопке", hint: "Короткая, чтобы помещалась", widget: object, collapsed: true, summary: "{{fields.ru}}", fields: *langs }
           - name: sections
             label: "Разделы"
             label_singular: "раздел"

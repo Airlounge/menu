@@ -27,6 +27,12 @@
     instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/>',
     telegram: '<path d="M21 4 3 11l6 2 2 6 3-4 5 4z"/><path d="m9 13 8-6"/>',
     google: '<path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
+    gamepad: '<path d="M7.5 8h9a4.5 4.5 0 0 1 4.3 5.8l-1 3.3a2.2 2.2 0 0 1-3.8.8L14.4 16H9.6l-1.6 1.9a2.2 2.2 0 0 1-3.8-.8l-1-3.3A4.5 4.5 0 0 1 7.5 8z"/><path d="M8 11v3M6.5 12.5h3"/><circle cx="15.5" cy="11.6" r=".5" fill="currentColor"/><circle cx="17.3" cy="13.4" r=".5" fill="currentColor"/>',
+    dice: '<rect x="3.5" y="3.5" width="17" height="17" rx="3.5"/><circle cx="8.3" cy="8.3" r="1" fill="currentColor"/><circle cx="15.7" cy="8.3" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="8.3" cy="15.7" r="1" fill="currentColor"/><circle cx="15.7" cy="15.7" r="1" fill="currentColor"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    pin: '<path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
+    wifi: '<path d="M2.5 9a14 14 0 0 1 19 0"/><path d="M5.5 12.2a9.5 9.5 0 0 1 13 0"/><path d="M8.6 15.3a5 5 0 0 1 6.8 0"/><circle cx="12" cy="18.6" r=".9" fill="currentColor"/>',
+    copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
     yandex: '<path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><path d="M13 6v9M13 6h-1.5a2.5 2.5 0 0 0 0 5H13M11 11l-2 4"/>'
   };
   const icon = (name) =>
@@ -73,7 +79,9 @@
   function renderTabbar() {
     $("tabs").innerHTML = settings.tabs.map((id) => {
       const tab = tabs[id];
-      return `<a class="tab" href="#${id}" data-tab="${id}" ${id === currentTab ? 'aria-current="page"' : ""}>${icon(tab.icon)}<span>${esc(t(tab.title))}</span></a>`;
+      // значок «О нас» — пламя из логотипа (картинка-маска), остальные — линейные значки
+      const ic = tab.icon === "flame" ? '<i class="tab-flame" aria-hidden="true"></i>' : icon(tab.icon);
+      return `<a class="tab" href="#${id}" data-tab="${id}" ${id === currentTab ? 'aria-current="page"' : ""}>${ic}<span>${esc(t(tab.tabLabel) || t(tab.title))}</span></a>`;
     }).join("");
     // «линза» переезжает под активную вкладку
     const bar = $("tabbar");
@@ -151,8 +159,45 @@
       <div><div class="promo-title">${esc(t(it.name))}</div><div class="promo-text">${esc(t(it.desc))}</div></div></article>`;
   }
 
+  // ---------- страница «О нас» ----------
+  function aboutHtml(tab) {
+    const row = (ic, label, value, extra = "") => `<div class="info-row">${icon(ic)}<div><div class="info-label">${esc(label)}</div><div class="info-value">${value}</div>${extra}</div></div>`;
+    const features = (tab.features || []).filter((f) => t(f.title)).map((f) =>
+      `<article class="promo"><div class="promo-icon">${icon(f.icon)}</div>
+        <div><div class="promo-title">${esc(t(f.title))}</div><div class="promo-text">${esc(t(f.text))}</div></div></article>`).join("");
+    const rows = [];
+    if (t(tab.hours && tab.hours.value)) rows.push(row("clock", t(tab.hours.label), esc(t(tab.hours.value))));
+    if (t(tab.address && tab.address.value)) {
+      const map = (settings.socials || []).find((x) => x.type === "google" && x.url);
+      const v = esc(t(tab.address.value));
+      rows.push(row("pin", t(tab.address.label), map ? `<a href="${esc(map.url)}" target="_blank" rel="noopener">${v}</a>` : v));
+    }
+    const w = settings.wifi || {};
+    if (w.show && w.name) rows.push(row("wifi", u("wifi"),
+      `${esc(w.name)}`,
+      w.password ? `<button type="button" class="wifi-pass" data-copy="${esc(w.password)}"><span>${esc(u("password"))}: <b>${esc(w.password)}</b></span>${icon("copy")}</button>
+        <div class="info-hint" data-hint="${esc(t(tab.wifiHint))}" data-done="${esc(t(tab.copied))}">${esc(t(tab.wifiHint))}</div>` : ""));
+    return `<section class="about">
+      <div class="welcome">
+        <i class="welcome-mark" aria-hidden="true"></i>
+        <h2>${esc(t(tab.welcome && tab.welcome.title)).replace(esc(settings.name), `<span class="nowrap">${esc(settings.name)}</span>`)}</h2>
+        <p>${esc(t(tab.welcome && tab.welcome.text))}</p>
+      </div>
+      ${features ? `<div class="items">${features}</div>` : ""}
+      ${rows.length ? `<div class="info-card">${rows.join("")}</div>` : ""}
+      ${t(tab.age && tab.age.title) ? `<div class="age"><span class="age-badge">18+</span><div><div class="promo-title">${esc(t(tab.age.title))}</div><div class="promo-text">${esc(t(tab.age.text))}</div></div></div>` : ""}
+    </section>`;
+  }
+
   function renderTab() {
     const tab = tabs[currentTab];
+    if (tab.layout === "about") {
+      $("content").innerHTML = aboutHtml(tab);
+      $("chipsWrap").hidden = true;
+      $("hero").classList.add("single");
+      $("chips").innerHTML = "";
+      return;
+    }
     // «Коктейль вне меню» хранится отдельным блоком (в админке у него свои поля) — ставим его после нужного раздела
     let all = [...(tab.sections || [])];
     if (tab.offMenu) {
@@ -218,16 +263,11 @@
   }
 
   function renderFooter() {
-    const w = settings.wifi || {};
-    const wifi = w.show && w.name
-      ? `<div class="wifi"><span>${esc(u("wifi"))}: <b>${esc(w.name)}</b></span><span>${esc(u("password"))}: <b>${esc(w.password)}</b></span></div>`
-      : "";
     const socials = (settings.socials || []).map((s) =>
       `<a href="${esc(s.url || "#")}" class="${s.url ? "" : "empty"}" target="_blank" rel="noopener" aria-label="${esc(s.label)}">${icon(s.type)}</a>`).join("");
     $("footer").innerHTML = `
       <p class="rule">${esc(u("ownDrinks"))}</p>
       <p>${esc(u("orderHint"))}</p>
-      ${wifi}
       <p>${esc(u("followUs"))}</p>
       <div class="socials">${socials}</div>`;
   }
@@ -352,6 +392,19 @@
       $("chipsBg").style.opacity = Math.min(1, Math.max(0, (window.scrollY - start) / 50)).toFixed(3);
       if (!spyTick) { spyTick = true; requestAnimationFrame(updateSpy); }
     }, { passive: true });
+
+    // «О нас»: нажатие на пароль Wi-Fi копирует его
+    $("content").addEventListener("click", async (e) => {
+      const b = e.target.closest(".wifi-pass");
+      if (!b) return;
+      try { await navigator.clipboard.writeText(b.dataset.copy); }
+      catch (err) {
+        const ta = document.createElement("textarea"); ta.value = b.dataset.copy; document.body.appendChild(ta);
+        ta.select(); try { document.execCommand("copy"); } catch (x) { /* ничего */ } ta.remove();
+      }
+      const hint = b.parentNode.querySelector(".info-hint");
+      if (hint) { hint.textContent = hint.dataset.done; hint.classList.add("ok"); setTimeout(() => { hint.textContent = hint.dataset.hint; hint.classList.remove("ok"); }, 2000); }
+    });
 
     // просмотр фото
     $("content").addEventListener("click", (e) => {

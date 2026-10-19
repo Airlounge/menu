@@ -1,0 +1,119 @@
+{
+  "id": "about",
+  "icon": "flame",
+  "layout": "about",
+  "menuLabel": false,
+  "title": {
+    "ru": "О нас",
+    "en": "About us",
+    "ka": "ჩვენ შესახებ",
+    "tr": "Hakkımızda"
+  },
+  "tabLabel": {
+    "ru": "О нас",
+    "en": "About",
+    "ka": "ჩვენზე",
+    "tr": "Hakkında"
+  },
+  "welcome": {
+    "title": {
+      "ru": "Добро пожаловать в AIR LOUNGE & BAR",
+      "en": "Welcome to AIR LOUNGE & BAR",
+      "ka": "მოგესალმებით AIR LOUNGE & BAR-ში",
+      "tr": "AIR LOUNGE & BAR'a hoş geldiniz"
+    },
+    "text": {
+      "ru": "Место для неспешных вечеров: встретиться с друзьями, поработать за ноутбуком или просто выдохнуть под кальян и хороший коктейль.",
+      "en": "A place for unhurried evenings: meet up with friends, get some work done on your laptop, or simply unwind over a hookah and a good cocktail.",
+      "ka": "ადგილი აუჩქარებელი საღამოებისთვის: შეხვდით მეგობრებს, იმუშავეთ ლეპტოპით ან უბრალოდ დაისვენეთ ჩილიმითა და კარგი კოქტეილით.",
+      "tr": "Acelesiz akşamlar için bir yer: arkadaşlarınızla buluşun, dizüstü bilgisayarınızla çalışın ya da nargile ve güzel bir kokteyl eşliğinde dinlenin."
+    }
+  },
+  "features": [
+    {
+      "icon": "gamepad",
+      "title": {
+        "ru": "PlayStation 5",
+        "en": "PlayStation 5",
+        "ka": "PlayStation 5",
+        "tr": "PlayStation 5"
+      },
+      "text": {
+        "ru": "Две приставки и больше 100 игр — для турнира с друзьями или спокойной партии вдвоём.",
+        "en": "Two consoles and 100+ games — for a tournament with friends or a quiet match for two.",
+        "ka": "ორი კონსოლი და 100-ზე მეტი თამაში — მეგობრებთან ტურნირისთვის ან მშვიდი თამაშისთვის ორნი.",
+        "tr": "İki konsol ve 100'den fazla oyun — arkadaşlarla turnuva ya da iki kişilik sakin bir maç için."
+      }
+    },
+    {
+      "icon": "dice",
+      "title": {
+        "ru": "Настольные игры",
+        "en": "Board games",
+        "ka": "სამაგიდო თამაშები",
+        "tr": "Kutu oyunları"
+      },
+      "text": {
+        "ru": "Целая полка на любую компанию. Не знаете, что выбрать, — подскажем.",
+        "en": "A whole shelf for any group. Not sure what to pick? We'll help.",
+        "ka": "მთელი თარო ნებისმიერი კომპანიისთვის. არ იცით, რა აირჩიოთ? დაგეხმარებით.",
+        "tr": "Her gruba uygun koca bir raf. Ne seçeceğinizi bilmiyor musunuz? Yardımcı oluruz."
+      }
+    }
+  ],
+  "hours": {
+    "label": {
+      "ru": "Время работы",
+      "en": "Opening hours",
+      "ka": "სამუშაო საათები",
+      "tr": "Çalışma saatleri"
+    },
+    "value": {
+      "ru": "",
+      "en": "",
+      "ka": "",
+      "tr": ""
+    }
+  },
+  "address": {
+    "label": {
+      "ru": "Адрес",
+      "en": "Address",
+      "ka": "მისამართი",
+      "tr": "Adres"
+    },
+    "value": {
+      "ru": "Батуми, ул. Казбеги, 13",
+      "en": "Batumi, 13 Kazbegi St.",
+      "ka": "ბათუმი, ყაზბეგის ქ. 13",
+      "tr": "Batum, Kazbegi Sk. 13"
+    }
+  },
+  "wifiHint": {
+    "ru": "Нажмите, чтобы скопировать пароль",
+    "en": "Tap to copy the password",
+    "ka": "შეეხეთ პაროლის დასაკოპირებლად",
+    "tr": "Şifreyi kopyalamak için dokunun"
+  },
+  "copied": {
+    "ru": "Пароль скопирован",
+    "en": "Password copied",
+    "ka": "პაროლი დაკოპირდა",
+    "tr": "Şifre kopyalandı"
+  },
+  "age": {
+    "title": {
+      "ru": "Только 18+",
+      "en": "18+ only",
+      "ka": "მხოლოდ 18+",
+      "tr": "Sadece 18+"
+    },
+    "text": {
+      "ru": "Посещение заведения строго с 18 лет.",
+      "en": "Entry strictly for guests aged 18 and over.",
+      "ka": "დაწესებულებაში შესვლა მკაცრად 18 წლიდან.",
+      "tr": "Mekâna giriş kesinlikle 18 yaş ve üzeri içindir."
+    }
+  },
+  "sections": []
+}

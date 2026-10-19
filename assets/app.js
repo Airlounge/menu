@@ -191,8 +191,8 @@
         <p>${esc(t(tab.welcome && tab.welcome.text))}</p>
       </div>
       ${rows.length ? `<div class="info-card">${rows.join("")}</div>` : ""}
-      ${t(tab.age && tab.age.title) ? `<article class="promo"><div class="promo-icon">${icon(tab.age.icon || "idcard")}</div><div><div class="promo-title">${esc(t(tab.age.title))}</div><div class="promo-text">${esc(t(tab.age.text))}</div></div></article>` : ""}
       ${tab.booking && tab.booking.url && t(tab.booking.label) ? `<a class="book-btn" href="${esc(tab.booking.url)}" target="_blank" rel="noopener">${esc(t(tab.booking.label))}</a>` : ""}
+      ${t(tab.age && tab.age.title) ? `<article class="promo"><div class="promo-icon">${icon(tab.age.icon || "idcard")}</div><div><div class="promo-title">${esc(t(tab.age.title))}</div><div class="promo-text">${esc(t(tab.age.text))}</div></div></article>` : ""}
       ${features ? `<div class="features">${features}</div>` : ""}
     </section>`;
   }
@@ -426,10 +426,17 @@
       $("sheetList").innerHTML = f.list.filter((g) => t(g.name)).map((g) =>
         `<li><span>${esc(t(g.name))}</span>${g.players ? `<i></i><b>${esc(g.players)}</b>` : ""}</li>`).join("");
       $("sheetBody").scrollTop = 0;
+      fitSheet();
       sheet.hidden = false;
       document.documentElement.classList.add("locked");
-      requestAnimationFrame(() => requestAnimationFrame(() => sheet.classList.add("open")));
+      void sheet.offsetHeight; // чтобы сработала анимация выезда
+      sheet.classList.add("open");
     });
+    // высота — по видимой части экрана (на iPhone панели Safari могут быть развёрнуты)
+    const fitSheet = () => { sheet.firstElementChild.style.maxHeight = Math.round((window.visualViewport ? visualViewport.height : innerHeight) * 0.8) + "px"; };
+    (window.visualViewport || window).addEventListener("resize", () => { if (!sheet.hidden) fitSheet(); });
+    // страница под шторкой не прокручивается (иначе Safari прячет/показывает свои панели и всё съезжает)
+    sheet.addEventListener("touchmove", (e) => { if (!e.target.closest(".sheet-body")) e.preventDefault(); }, { passive: false });
     sheet.addEventListener("click", (e) => { if (e.target === sheet || e.target.closest(".sheet-close")) closeSheet(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !sheet.hidden) closeSheet(); });
 

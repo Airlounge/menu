@@ -29,6 +29,7 @@
     google: '<path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
     gamepad: '<path d="M7.5 8h9a4.5 4.5 0 0 1 4.3 5.8l-1 3.3a2.2 2.2 0 0 1-3.8.8L14.4 16H9.6l-1.6 1.9a2.2 2.2 0 0 1-3.8-.8l-1-3.3A4.5 4.5 0 0 1 7.5 8z"/><path d="M8 11v3M6.5 12.5h3"/><circle cx="15.5" cy="11.6" r=".5" fill="currentColor"/><circle cx="17.3" cy="13.4" r=".5" fill="currentColor"/>',
     dice: '<rect x="3.5" y="3.5" width="17" height="17" rx="3.5"/><circle cx="8.3" cy="8.3" r="1" fill="currentColor"/><circle cx="15.7" cy="8.3" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="8.3" cy="15.7" r="1" fill="currentColor"/><circle cx="15.7" cy="15.7" r="1" fill="currentColor"/>',
+    idcard: '<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><circle cx="8.5" cy="11" r="2.2"/><path d="M5.2 16.2c.6-1.6 1.9-2.4 3.3-2.4s2.7.8 3.3 2.4"/><path d="M14.5 10h4.5M14.5 13.5h3"/>',
     clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
     pin: '<path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>',
     wifi: '<path d="M2.5 9a14 14 0 0 1 19 0"/><path d="M5.5 12.2a9.5 9.5 0 0 1 13 0"/><path d="M8.6 15.3a5 5 0 0 1 6.8 0"/><circle cx="12" cy="18.6" r=".9" fill="currentColor"/>',
@@ -179,13 +180,13 @@
         <div class="info-hint" data-hint="${esc(t(tab.wifiHint))}" data-done="${esc(t(tab.copied))}">${esc(t(tab.wifiHint))}</div>` : ""));
     return `<section class="about">
       <div class="welcome">
-        <i class="welcome-mark" aria-hidden="true"></i>
         <h2>${esc(t(tab.welcome && tab.welcome.title)).replace(esc(settings.name), `<span class="nowrap">${esc(settings.name)}</span>`)}</h2>
         <p>${esc(t(tab.welcome && tab.welcome.text))}</p>
       </div>
       ${features ? `<div class="items">${features}</div>` : ""}
       ${rows.length ? `<div class="info-card">${rows.join("")}</div>` : ""}
-      ${t(tab.age && tab.age.title) ? `<div class="age"><span class="age-badge">18+</span><div><div class="promo-title">${esc(t(tab.age.title))}</div><div class="promo-text">${esc(t(tab.age.text))}</div></div></div>` : ""}
+      ${t(tab.age && tab.age.title) ? `<article class="promo"><div class="promo-icon">${icon(tab.age.icon || "idcard")}</div><div><div class="promo-title">${esc(t(tab.age.title))}</div><div class="promo-text">${esc(t(tab.age.text))}</div></div></article>` : ""}
+      ${tab.booking && tab.booking.url && t(tab.booking.label) ? `<a class="book-btn" href="${esc(tab.booking.url)}" target="_blank" rel="noopener">${esc(t(tab.booking.label))}</a>` : ""}
     </section>`;
   }
 

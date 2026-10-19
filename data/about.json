@@ -69,10 +69,10 @@
       "tr": "Çalışma saatleri"
     },
     "value": {
-      "ru": "",
-      "en": "",
-      "ka": "",
-      "tr": ""
+      "ru": "Вс–Чт: 14:00–02:00\nПт–Сб: 14:00–04:00",
+      "en": "Sun–Thu: 14:00–02:00\nFri–Sat: 14:00–04:00",
+      "ka": "კვ–ხუთ: 14:00–02:00\nპარ–შაბ: 14:00–04:00",
+      "tr": "Paz–Per: 14:00–02:00\nCum–Cmt: 14:00–04:00"
     }
   },
   "address": {
@@ -113,7 +113,17 @@
       "en": "Entry strictly for guests aged 18 and over.",
       "ka": "დაწესებულებაში შესვლა მკაცრად 18 წლიდან.",
       "tr": "Mekâna giriş kesinlikle 18 yaş ve üzeri içindir."
-    }
+    },
+    "icon": "idcard"
   },
-  "sections": []
+  "sections": [],
+  "booking": {
+    "label": {
+      "ru": "Забронировать стол",
+      "en": "Book a table",
+      "ka": "მაგიდის დაჯავშნა",
+      "tr": "Masa ayırt"
+    },
+    "url": "https://airloungebar.restoplace.ws/"
+  }
 }

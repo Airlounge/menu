@@ -165,9 +165,14 @@
   // ---------- страница «О нас» ----------
   function aboutHtml(tab) {
     const row = (ic, label, value, extra = "") => `<div class="info-row">${icon(ic)}<div><div class="info-label">${esc(label)}</div><div class="info-value">${value}</div>${extra}</div></div>`;
-    const features = (tab.features || []).filter((f) => t(f.title)).map((f) =>
-      `<article class="feature"><div class="promo-icon">${icon(f.icon)}</div>
-        <div class="promo-title">${esc(t(f.title))}</div><div class="promo-text">${esc(t(f.text))}</div></article>`).join("");
+    const features = (tab.features || []).map((f, i) => [f, i]).filter(([f]) => t(f.title)).map(([f, i]) => {
+      const inner = `<div class="promo-icon">${icon(f.icon)}</div>
+        <div class="promo-title">${esc(t(f.title))}</div><div class="promo-text">${esc(t(f.text))}</div>`;
+      // у карточки есть список (настольные игры) — карточка нажимается и открывает его снизу
+      return f.list && f.list.length
+        ? `<button type="button" class="feature has-list" data-list="${i}">${inner}<span class="feature-more">${esc(t(f.listLabel))} ›</span></button>`
+        : `<article class="feature">${inner}</article>`;
+    }).join("");
     const rows = [];
     if (t(tab.hours && tab.hours.value)) rows.push(row("clock", t(tab.hours.label), esc(t(tab.hours.value))));
     if (t(tab.address && tab.address.value)) {
@@ -185,10 +190,10 @@
         <h2>${esc(t(tab.welcome && tab.welcome.title)).replace(esc(settings.name), `<span class="nowrap">${esc(settings.name)}</span>`)}</h2>
         <p>${esc(t(tab.welcome && tab.welcome.text))}</p>
       </div>
-      ${features ? `<div class="features">${features}</div>` : ""}
       ${rows.length ? `<div class="info-card">${rows.join("")}</div>` : ""}
       ${t(tab.age && tab.age.title) ? `<article class="promo"><div class="promo-icon">${icon(tab.age.icon || "idcard")}</div><div><div class="promo-title">${esc(t(tab.age.title))}</div><div class="promo-text">${esc(t(tab.age.text))}</div></div></article>` : ""}
       ${tab.booking && tab.booking.url && t(tab.booking.label) ? `<a class="book-btn" href="${esc(tab.booking.url)}" target="_blank" rel="noopener">${esc(t(tab.booking.label))}</a>` : ""}
+      ${features ? `<div class="features">${features}</div>` : ""}
     </section>`;
   }
 
@@ -408,6 +413,25 @@
       const hint = b.parentNode.querySelector(".info-hint");
       if (hint) { hint.textContent = hint.dataset.done; hint.classList.add("ok"); setTimeout(() => { hint.textContent = hint.dataset.hint; hint.classList.remove("ok"); }, 2000); }
     });
+
+    // «О нас»: список настольных игр — выезжает снизу
+    const sheet = $("sheet");
+    const closeSheet = () => { sheet.classList.remove("open"); document.documentElement.classList.remove("locked"); setTimeout(() => { if (!sheet.classList.contains("open")) sheet.hidden = true; }, 300); };
+    $("content").addEventListener("click", (e) => {
+      const b = e.target.closest(".feature.has-list");
+      if (!b) return;
+      const tab = tabs[currentTab], f = tab.features[+b.dataset.list];
+      $("sheetTitle").textContent = t(f.title);
+      $("sheetCount").textContent = t(tab.playersLabel);
+      $("sheetList").innerHTML = f.list.filter((g) => t(g.name)).map((g) =>
+        `<li><span>${esc(t(g.name))}</span>${g.players ? `<i></i><b>${esc(g.players)}</b>` : ""}</li>`).join("");
+      $("sheetBody").scrollTop = 0;
+      sheet.hidden = false;
+      document.documentElement.classList.add("locked");
+      requestAnimationFrame(() => requestAnimationFrame(() => sheet.classList.add("open")));
+    });
+    sheet.addEventListener("click", (e) => { if (e.target === sheet || e.target.closest(".sheet-close")) closeSheet(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !sheet.hidden) closeSheet(); });
 
     // просмотр фото
     $("content").addEventListener("click", (e) => {

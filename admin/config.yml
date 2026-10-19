@@ -176,6 +176,20 @@ collections:
                   - { label: "Корона", value: crown }
               - { name: title, label: "Заголовок", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs }
               - { name: text, label: "Текст", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs_text }
+              - { name: listLabel, label: "Подпись «Список…» на карточке", hint: "Нужна, только если ниже есть список", widget: object, collapsed: true, required: false, summary: "{{fields.ru}}", fields: *langs }
+              - name: list
+                label: "Список (открывается по нажатию)"
+                label_singular: "игру"
+                hint: "Например, настольные игры. Пусто — карточка не нажимается"
+                widget: list
+                required: false
+                allow_duplicate: false
+                collapsed: true
+                summary: "{{fields.name.ru}}  {{fields.players}}"
+                fields:
+                  - { name: name, label: "Название", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs }
+                  - { name: players, label: "Игроков", hint: "Например: 2–6 или 2+. Можно оставить пустым", widget: string, required: false }
+          - { name: playersLabel, label: "Подпись «игроков» над списком", widget: object, collapsed: true, summary: "{{fields.ru}}", fields: *langs }
           - name: hours
             label: "Время работы"
             hint: "Если пусто — строка на сайте не показывается"

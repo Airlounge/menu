@@ -445,6 +445,37 @@
     (window.visualViewport || window).addEventListener("resize", () => { if (!sheet.hidden) fitSheet(); });
     // страница под шторкой не прокручивается (иначе Safari прячет/показывает свои панели и всё съезжает)
     sheet.addEventListener("touchmove", (e) => { if (!e.target.closest(".sheet-body")) e.preventDefault(); }, { passive: false });
+    // шторку можно потянуть вниз: за шапку или за список, когда он прокручен до самого верха
+    const box = sheet.firstElementChild, body = $("sheetBody");
+    let pull = null;
+    box.addEventListener("touchstart", (e) => {
+      if (e.target.closest(".sheet-close")) return;
+      pull = { y: e.touches[0].clientY, t: Date.now(), dy: 0, inList: !!e.target.closest(".sheet-body"), on: false };
+    }, { passive: true });
+    box.addEventListener("touchmove", (e) => {
+      if (!pull) return;
+      const dy = e.touches[0].clientY - pull.y;
+      if (!pull.on) {
+        // в списке тянем шторку, только если список уже наверху и палец идёт вниз; иначе — обычная прокрутка
+        if (pull.inList && (body.scrollTop > 0 || dy <= 0)) { pull = null; return; }
+        pull.on = true; box.style.transition = "none";
+      }
+      e.preventDefault();
+      pull.dy = Math.max(0, dy);
+      box.style.transform = `translateY(${pull.dy}px)`;
+      sheet.style.background = `rgba(10,10,10,${(.6 * (1 - Math.min(1, pull.dy / box.offsetHeight))).toFixed(3)})`;
+    }, { passive: false });
+    const endDrag = () => {
+      if (!pull) return;
+      const d = pull; pull = null;
+      if (!d.on) return;
+      box.style.transition = ""; sheet.style.background = "";
+      const fast = d.dy / Math.max(1, Date.now() - d.t) > 0.6;           // быстрый взмах вниз
+      if (d.dy > Math.min(120, box.offsetHeight * 0.25) || (fast && d.dy > 30)) closeSheet();
+      box.style.transform = "";                                           // доедет вниз (закрытие) или вернётся на место
+    };
+    box.addEventListener("touchend", endDrag);
+    box.addEventListener("touchcancel", endDrag);
     sheet.addEventListener("click", (e) => { if (e.target === sheet || e.target.closest(".sheet-close")) closeSheet(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !sheet.hidden) closeSheet(); });
 

@@ -78,57 +78,12 @@
         },
         {
           "name": {
-            "ru": "Секретный Гитлер",
-            "en": "Secret Hitler",
-            "ka": "Secret Hitler",
-            "tr": "Secret Hitler"
-          },
-          "players": "5–10"
-        },
-        {
-          "name": {
-            "ru": "Катан",
-            "en": "Catan",
-            "ka": "Catan",
-            "tr": "Catan"
-          },
-          "players": "3–4"
-        },
-        {
-          "name": {
-            "ru": "Диксит",
-            "en": "Dixit",
-            "ka": "Dixit",
-            "tr": "Dixit"
-          },
-          "players": "3–6"
-        },
-        {
-          "name": {
-            "ru": "Коднеймс. Картинки",
-            "en": "Codenames: Pictures",
-            "ka": "Codenames: Pictures",
-            "tr": "Codenames: Pictures"
-          },
-          "players": "3–6"
-        },
-        {
-          "name": {
             "ru": "Уно",
             "en": "UNO",
             "ka": "UNO",
             "tr": "UNO"
           },
           "players": "2–10"
-        },
-        {
-          "name": {
-            "ru": "Дженга",
-            "en": "Jenga",
-            "ka": "Jenga",
-            "tr": "Jenga"
-          },
-          "players": "2+"
         },
         {
           "name": {
@@ -141,109 +96,10 @@
         },
         {
           "name": {
-            "ru": "Рик и Морти",
-            "en": "Rick and Morty",
-            "ka": "Rick and Morty",
-            "tr": "Rick and Morty"
-          },
-          "players": "2–5"
-        },
-        {
-          "name": {
-            "ru": "Экивоки",
-            "en": "Ekivoki",
-            "ka": "Ekivoki",
-            "tr": "Ekivoki"
-          },
-          "players": "2–16"
-        },
-        {
-          "name": {
-            "ru": "Голливуд",
-            "en": "Hollywood",
-            "ka": "Hollywood",
-            "tr": "Hollywood"
-          },
-          "players": "2–6"
-        },
-        {
-          "name": {
-            "ru": "Чудесные башни",
-            "en": "Wonder Towers",
-            "ka": "Wonder Towers",
-            "tr": "Wonder Towers"
-          },
-          "players": "2–4"
-        },
-        {
-          "name": {
-            "ru": "Carta Impera Victoria",
-            "en": "Carta Impera Victoria",
-            "ka": "Carta Impera Victoria",
-            "tr": "Carta Impera Victoria"
-          },
-          "players": "2–4"
-        },
-        {
-          "name": {
-            "ru": "Ticket to Ride",
-            "en": "Ticket to Ride",
-            "ka": "Ticket to Ride",
-            "tr": "Ticket to Ride"
-          },
-          "players": "2–5"
-        },
-        {
-          "name": {
-            "ru": "Бэнг!",
-            "en": "Bang!",
-            "ka": "Bang!",
-            "tr": "Bang!"
-          },
-          "players": "4–7"
-        },
-        {
-          "name": {
-            "ru": "Бункер",
-            "en": "Bunker",
-            "ka": "Bunker",
-            "tr": "Bunker"
-          },
-          "players": "5–16"
-        },
-        {
-          "name": {
-            "ru": "Подложи свинью",
-            "en": "Slip a Pig",
-            "ka": "Slip a Pig",
-            "tr": "Slip a Pig"
-          },
-          "players": "4–8"
-        },
-        {
-          "name": {
-            "ru": "Дудл Друдл",
-            "en": "Doodle Droodle",
-            "ka": "Doodle Droodle",
-            "tr": "Doodle Droodle"
-          },
-          "players": "2–6"
-        },
-        {
-          "name": {
-            "ru": "Скажи да или нет",
-            "en": "Say Yes or No",
-            "ka": "Say Yes or No",
-            "tr": "Say Yes or No"
-          },
-          "players": "2+"
-        },
-        {
-          "name": {
-            "ru": "Запутанные истории",
-            "en": "Tangled Stories",
-            "ka": "Tangled Stories",
-            "tr": "Tangled Stories"
+            "ru": "Дженга",
+            "en": "Jenga",
+            "ka": "Jenga",
+            "tr": "Jenga"
           },
           "players": "2+"
         },
@@ -267,15 +123,6 @@
         },
         {
           "name": {
-            "ru": "Домино",
-            "en": "Dominoes",
-            "ka": "დომინო",
-            "tr": "Domino"
-          },
-          "players": "2+"
-        },
-        {
-          "name": {
             "ru": "Игральные карты",
             "en": "Playing cards",
             "ka": "სათამაშო ბანქო",
@@ -285,30 +132,75 @@
         },
         {
           "name": {
-            "ru": "Свинтус 2.0",
-            "en": "Svintus 2.0",
-            "ka": "Svintus 2.0",
-            "tr": "Svintus 2.0"
+            "ru": "Катан",
+            "en": "Catan",
+            "ka": "Catan",
+            "tr": "Catan"
+          },
+          "players": "3–4"
+        },
+        {
+          "name": {
+            "ru": "Диксит",
+            "en": "Dixit",
+            "ka": "Dixit",
+            "tr": "Dixit"
+          },
+          "players": "3–6"
+        },
+        {
+          "name": {
+            "ru": "Покер (набор)",
+            "en": "Poker set",
+            "ka": "პოკერის ნაკრები",
+            "tr": "Poker seti"
           },
           "players": "2–10"
         },
         {
           "name": {
-            "ru": "Битва полов",
-            "en": "Battle of the Sexes",
-            "ka": "Battle of the Sexes",
-            "tr": "Cinsiyetler Savaşı"
+            "ru": "Ticket to Ride",
+            "en": "Ticket to Ride",
+            "ka": "Ticket to Ride",
+            "tr": "Ticket to Ride"
           },
-          "players": "4+"
+          "players": "2–5"
         },
         {
           "name": {
-            "ru": "Антибухер",
-            "en": "Antibukher",
-            "ka": "Antibukher",
-            "tr": "Antibukher"
+            "ru": "Коднеймс. Картинки",
+            "en": "Codenames: Pictures",
+            "ka": "Codenames: Pictures",
+            "tr": "Codenames: Pictures"
           },
-          "players": ""
+          "players": "3–6"
+        },
+        {
+          "name": {
+            "ru": "Секретный Гитлер",
+            "en": "Secret Hitler",
+            "ka": "Secret Hitler",
+            "tr": "Secret Hitler"
+          },
+          "players": "5–10"
+        },
+        {
+          "name": {
+            "ru": "Бэнг!",
+            "en": "Bang!",
+            "ka": "Bang!",
+            "tr": "Bang!"
+          },
+          "players": "4–7"
+        },
+        {
+          "name": {
+            "ru": "Домино",
+            "en": "Dominoes",
+            "ka": "დომინო",
+            "tr": "Domino"
+          },
+          "players": "2+"
         },
         {
           "name": {
@@ -321,12 +213,147 @@
         },
         {
           "name": {
+            "ru": "Свинтус 2.0",
+            "en": "Svintus 2.0",
+            "ka": "Svintus 2.0",
+            "tr": "Svintus 2.0"
+          },
+          "players": "2–10"
+        },
+        {
+          "name": {
+            "ru": "Бункер",
+            "en": "Bunker",
+            "ka": "Bunker",
+            "tr": "Bunker"
+          },
+          "players": "5–16"
+        },
+        {
+          "name": {
+            "ru": "Экивоки",
+            "en": "Ekivoki",
+            "ka": "Ekivoki",
+            "tr": "Ekivoki"
+          },
+          "players": "2–16"
+        },
+        {
+          "name": {
+            "ru": "Нечто",
+            "en": "The Thing",
+            "ka": "The Thing",
+            "tr": "The Thing"
+          },
+          "players": "4–12"
+        },
+        {
+          "name": {
             "ru": "Трамвай смерти",
             "en": "Trial by Trolley",
             "ka": "Trial by Trolley",
             "tr": "Trial by Trolley"
           },
           "players": "3–9"
+        },
+        {
+          "name": {
+            "ru": "Рик и Морти",
+            "en": "Rick and Morty",
+            "ka": "Rick and Morty",
+            "tr": "Rick and Morty"
+          },
+          "players": "2–5"
+        },
+        {
+          "name": {
+            "ru": "Голливуд",
+            "en": "Hollywood",
+            "ka": "Hollywood",
+            "tr": "Hollywood"
+          },
+          "players": "2–6"
+        },
+        {
+          "name": {
+            "ru": "Дудл Друдл",
+            "en": "Doodle Droodle",
+            "ka": "Doodle Droodle",
+            "tr": "Doodle Droodle"
+          },
+          "players": "2–6"
+        },
+        {
+          "name": {
+            "ru": "Подложи свинью",
+            "en": "Slip a Pig",
+            "ka": "Slip a Pig",
+            "tr": "Slip a Pig"
+          },
+          "players": "4–8"
+        },
+        {
+          "name": {
+            "ru": "Чудесные башни",
+            "en": "Wonder Towers",
+            "ka": "Wonder Towers",
+            "tr": "Wonder Towers"
+          },
+          "players": "2–4"
+        },
+        {
+          "name": {
+            "ru": "Carta Impera Victoria",
+            "en": "Carta Impera Victoria",
+            "ka": "Carta Impera Victoria",
+            "tr": "Carta Impera Victoria"
+          },
+          "players": "2–4"
+        },
+        {
+          "name": {
+            "ru": "Битва полов",
+            "en": "Battle of the Sexes",
+            "ka": "Battle of the Sexes",
+            "tr": "Cinsiyetler Savaşı"
+          },
+          "players": "4+"
+        },
+        {
+          "name": {
+            "ru": "Чепуха",
+            "en": "Nonsense",
+            "ka": "Nonsense",
+            "tr": "Nonsense"
+          },
+          "players": "3+"
+        },
+        {
+          "name": {
+            "ru": "Скажи да или нет",
+            "en": "Say Yes or No",
+            "ka": "Say Yes or No",
+            "tr": "Say Yes or No"
+          },
+          "players": "2+"
+        },
+        {
+          "name": {
+            "ru": "Запутанные истории",
+            "en": "Tangled Stories",
+            "ka": "Tangled Stories",
+            "tr": "Tangled Stories"
+          },
+          "players": "2+"
+        },
+        {
+          "name": {
+            "ru": "Антибухер",
+            "en": "Antibukher",
+            "ka": "Antibukher",
+            "tr": "Antibukher"
+          },
+          "players": ""
         },
         {
           "name": {
@@ -345,15 +372,6 @@
             "tr": "Liar's Bar"
           },
           "players": ""
-        },
-        {
-          "name": {
-            "ru": "Чепуха",
-            "en": "Nonsense",
-            "ka": "Nonsense",
-            "tr": "Nonsense"
-          },
-          "players": "3+"
         },
         {
           "name": {
@@ -381,24 +399,6 @@
             "tr": "Meme Club"
           },
           "players": ""
-        },
-        {
-          "name": {
-            "ru": "Нечто",
-            "en": "The Thing",
-            "ka": "The Thing",
-            "tr": "The Thing"
-          },
-          "players": "4–12"
-        },
-        {
-          "name": {
-            "ru": "Покер (набор)",
-            "en": "Poker set",
-            "ka": "პოკერის ნაკრები",
-            "tr": "Poker seti"
-          },
-          "players": "2–10"
         }
       ]
     }

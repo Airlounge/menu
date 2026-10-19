@@ -166,8 +166,8 @@
   function aboutHtml(tab) {
     const row = (ic, label, value, extra = "") => `<div class="info-row">${icon(ic)}<div><div class="info-label">${esc(label)}</div><div class="info-value">${value}</div>${extra}</div></div>`;
     const features = (tab.features || []).filter((f) => t(f.title)).map((f) =>
-      `<article class="promo"><div class="promo-icon">${icon(f.icon)}</div>
-        <div><div class="promo-title">${esc(t(f.title))}</div><div class="promo-text">${esc(t(f.text))}</div></div></article>`).join("");
+      `<article class="feature"><div class="promo-icon">${icon(f.icon)}</div>
+        <div class="promo-title">${esc(t(f.title))}</div><div class="promo-text">${esc(t(f.text))}</div></article>`).join("");
     const rows = [];
     if (t(tab.hours && tab.hours.value)) rows.push(row("clock", t(tab.hours.label), esc(t(tab.hours.value))));
     if (t(tab.address && tab.address.value)) {
@@ -185,7 +185,7 @@
         <h2>${esc(t(tab.welcome && tab.welcome.title)).replace(esc(settings.name), `<span class="nowrap">${esc(settings.name)}</span>`)}</h2>
         <p>${esc(t(tab.welcome && tab.welcome.text))}</p>
       </div>
-      ${features ? `<div class="items">${features}</div>` : ""}
+      ${features ? `<div class="features">${features}</div>` : ""}
       ${rows.length ? `<div class="info-card">${rows.join("")}</div>` : ""}
       ${t(tab.age && tab.age.title) ? `<article class="promo"><div class="promo-icon">${icon(tab.age.icon || "idcard")}</div><div><div class="promo-title">${esc(t(tab.age.title))}</div><div class="promo-text">${esc(t(tab.age.text))}</div></div></article>` : ""}
       ${tab.booking && tab.booking.url && t(tab.booking.label) ? `<a class="book-btn" href="${esc(tab.booking.url)}" target="_blank" rel="noopener">${esc(t(tab.booking.label))}</a>` : ""}

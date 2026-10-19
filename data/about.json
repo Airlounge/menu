@@ -3,6 +3,7 @@
   "icon": "flame",
   "layout": "about",
   "menuLabel": false,
+  "hideTitle": true,
   "title": {
     "ru": "О нас",
     "en": "About us",

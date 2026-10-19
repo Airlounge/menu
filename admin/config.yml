@@ -143,6 +143,7 @@ collections:
           - { name: layout, widget: hidden }
           - { name: menuLabel, widget: hidden }
           - { name: sections, widget: hidden }
+          - { name: hideTitle, widget: hidden }
           - { name: title, label: "Название вкладки", widget: object, collapsed: true, summary: "{{fields.ru}}   {{fields.auto}}", fields: *langs }
           - { name: tabLabel, label: "Подпись на нижней кнопке", hint: "Короткая, чтобы помещалась", widget: object, collapsed: true, summary: "{{fields.ru}}", fields: *langs }
           - name: welcome

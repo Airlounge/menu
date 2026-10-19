@@ -376,3 +376,7 @@ button.photo { cursor: zoom-in; }
 }
 .book-btn:active { transform: scale(.98); }
 .info-value { white-space: pre-line; }
+.hero[hidden] { display: none; }
+/* «О нас» без большого заголовка: приветствие — главный заголовок страницы */
+.hero[hidden] ~ .chips-wrap + .content .about { padding-top: 26px; }
+.hero[hidden] ~ .chips-wrap + .content .welcome h2 { font-size: 27px; }

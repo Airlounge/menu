@@ -332,6 +332,15 @@
     updateSpy();
   }
 
+  // подложка под лентой разделов появляется плавно, по мере прокрутки.
+  // Считать заново и при смене вкладки: если страница уже вверху, события прокрутки не будет,
+  // и осталась бы подложка от прошлой вкладки (на «О нас» заголовка нет — там она тёмная сразу)
+  function updateChipsBg() {
+    const hero = $("hero");
+    const start = hero.offsetTop + hero.offsetHeight - 50;
+    $("chipsBg").style.opacity = Math.min(1, Math.max(0, (window.scrollY - start) / 50)).toFixed(3);
+  }
+
   function setTab(id, scroll) {
     if (!tabs[id]) id = settings.tabs[0];
     if (id === currentTab) return;
@@ -341,6 +350,7 @@
     renderTab();
     fadeIn();
     if (scroll) window.scrollTo({ top: 0 });
+    updateChipsBg();
   }
 
   function bind() {
@@ -352,6 +362,7 @@
       const y = window.scrollY;
       renderAll();
       window.scrollTo({ top: y });
+      updateChipsBg();
     });
 
     // на компьютере: ленту можно тянуть мышкой и крутить колёсиком (на телефоне — обычный свайп)
@@ -394,10 +405,7 @@
 
     const chips = $("chips");
     window.addEventListener("scroll", () => {
-      // подложка под лентой разделов появляется плавно, по мере прокрутки
-      const hero = $("hero");
-      const start = hero.offsetTop + hero.offsetHeight - 50;
-      $("chipsBg").style.opacity = Math.min(1, Math.max(0, (window.scrollY - start) / 50)).toFixed(3);
+      updateChipsBg();
       if (!spyTick) { spyTick = true; requestAnimationFrame(updateSpy); }
     }, { passive: true });
 

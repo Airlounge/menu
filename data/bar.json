@@ -987,6 +987,48 @@
           "hidden": false
         },
         {
+          "id": "beer-cider",
+          "name": {
+            "ru": "Natakhtari",
+            "en": "Natakhtari",
+            "ka": "ნატახტარი",
+            "tr": "Natakhtari",
+            "auto": ""
+          },
+          "desc": {
+            "ru": "",
+            "en": "",
+            "ka": "",
+            "tr": "",
+            "auto": ""
+          },
+          "price": 12,
+          "priceFrom": false,
+          "amount": null,
+          "unit": null,
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
+          "id": "276cd30e84b1",
+          "name": {
+            "ru": "Жигулёвское 6.5%",
+            "en": "Zhigulevskoye",
+            "ka": "Zhigulevskoye",
+            "tr": "Zhigulevskoye",
+            "auto": ""
+          },
+          "desc": null,
+          "price": 10,
+          "priceFrom": false,
+          "amount": null,
+          "unit": "",
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
           "id": "beer-lager",
           "name": {
             "ru": "Калекцыя Майстра Вечер в Брюгге",
@@ -1059,48 +1101,6 @@
           "hidden": false
         },
         {
-          "id": "beer-cider",
-          "name": {
-            "ru": "Natakhtari",
-            "en": "Natakhtari",
-            "ka": "ნატახტარი",
-            "tr": "Natakhtari",
-            "auto": ""
-          },
-          "desc": {
-            "ru": "",
-            "en": "",
-            "ka": "",
-            "tr": "",
-            "auto": ""
-          },
-          "price": 12,
-          "priceFrom": false,
-          "amount": null,
-          "unit": null,
-          "variants": [],
-          "photo": "",
-          "hidden": false
-        },
-        {
-          "id": "276cd30e84b1",
-          "name": {
-            "ru": "Жигулёвское 6.5%",
-            "en": "Zhigulevskoye",
-            "ka": "Zhigulevskoye",
-            "tr": "Zhigulevskoye",
-            "auto": ""
-          },
-          "desc": null,
-          "price": 10,
-          "priceFrom": false,
-          "amount": null,
-          "unit": "",
-          "variants": [],
-          "photo": "",
-          "hidden": false
-        },
-        {
           "id": "68438d3fedf7",
           "name": {
             "ru": "Лидское Нулёвачка Пшеничное б/а",
@@ -1158,6 +1158,90 @@
       "icon": "spirits",
       "items": [
         {
+          "id": "6d60f04874eb",
+          "name": {
+            "ru": "Monkey Shoulder",
+            "en": "Monkey Shoulder",
+            "ka": "Monkey Shoulder",
+            "tr": "Monkey Shoulder",
+            "auto": ""
+          },
+          "desc": null,
+          "price": 22,
+          "priceFrom": false,
+          "amount": 50,
+          "unit": "ml",
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
+          "id": "b2ae57745033",
+          "name": {
+            "ru": "Chivas Regal 12",
+            "en": "Chivas Regal 12",
+            "ka": "Chivas Regal 12",
+            "tr": "Chivas Regal 12",
+            "auto": ""
+          },
+          "desc": null,
+          "price": 25,
+          "priceFrom": false,
+          "amount": 50,
+          "unit": "ml",
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
+          "id": "jameson",
+          "name": {
+            "ru": "Jameson",
+            "en": "Jameson",
+            "ka": "Jameson",
+            "tr": "Jameson",
+            "auto": ""
+          },
+          "desc": {
+            "ru": "",
+            "en": "",
+            "ka": "",
+            "tr": "",
+            "auto": ""
+          },
+          "price": 15,
+          "priceFrom": false,
+          "amount": 50,
+          "unit": "ml",
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
+          "id": "ballantines",
+          "name": {
+            "ru": "Ballantine's",
+            "en": "Ballantine's",
+            "ka": "Ballantine's",
+            "tr": "Ballantine's",
+            "auto": ""
+          },
+          "desc": {
+            "ru": "",
+            "en": "",
+            "ka": "",
+            "tr": "",
+            "auto": ""
+          },
+          "price": 12,
+          "priceFrom": false,
+          "amount": 50,
+          "unit": "ml",
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
           "id": "justerini-and-brooks",
           "name": {
             "ru": "Justerini & Brooks",
@@ -1182,12 +1266,30 @@
           "hidden": false
         },
         {
-          "id": "jameson",
+          "id": "0db6a2d585db",
           "name": {
-            "ru": "Jameson",
-            "en": "Jameson",
-            "ka": "Jameson",
-            "tr": "Jameson",
+            "ru": "Jägermeister",
+            "en": "Jägermeister",
+            "ka": "Jägermeister",
+            "tr": "Jägermeister",
+            "auto": ""
+          },
+          "desc": null,
+          "price": 13,
+          "priceFrom": false,
+          "amount": 50,
+          "unit": "ml",
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
+          "id": "olmeca",
+          "name": {
+            "ru": "Olmeca",
+            "en": "Olmeca",
+            "ka": "Olmeca",
+            "tr": "Olmeca",
             "auto": ""
           },
           "desc": {
@@ -1222,30 +1324,6 @@
             "auto": ""
           },
           "price": 10,
-          "priceFrom": false,
-          "amount": 50,
-          "unit": "ml",
-          "variants": [],
-          "photo": "",
-          "hidden": false
-        },
-        {
-          "id": "ballantines",
-          "name": {
-            "ru": "Ballantine's",
-            "en": "Ballantine's",
-            "ka": "Ballantine's",
-            "tr": "Ballantine's",
-            "auto": ""
-          },
-          "desc": {
-            "ru": "",
-            "en": "",
-            "ka": "",
-            "tr": "",
-            "auto": ""
-          },
-          "price": 12,
           "priceFrom": false,
           "amount": 50,
           "unit": "ml",
@@ -1294,30 +1372,6 @@
             "auto": ""
           },
           "price": 10,
-          "priceFrom": false,
-          "amount": 50,
-          "unit": "ml",
-          "variants": [],
-          "photo": "",
-          "hidden": false
-        },
-        {
-          "id": "olmeca",
-          "name": {
-            "ru": "Olmeca",
-            "en": "Olmeca",
-            "ka": "Olmeca",
-            "tr": "Olmeca",
-            "auto": ""
-          },
-          "desc": {
-            "ru": "",
-            "en": "",
-            "ka": "",
-            "tr": "",
-            "auto": ""
-          },
-          "price": 15,
           "priceFrom": false,
           "amount": 50,
           "unit": "ml",

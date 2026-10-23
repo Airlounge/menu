@@ -885,12 +885,66 @@
       "icon": "beer",
       "items": [
         {
+          "id": "f63e1457a36d",
+          "name": {
+            "ru": "Corona Extra",
+            "en": "Corona Extra",
+            "ka": "Corona Extra",
+            "tr": "Corona Extra",
+            "auto": ""
+          },
+          "desc": null,
+          "price": 15,
+          "priceFrom": false,
+          "amount": null,
+          "unit": "",
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
+          "id": "70de2452ca6d",
+          "name": {
+            "ru": "Paulaner Weissbier",
+            "en": "Paulaner Weissbier",
+            "ka": "Paulaner Weissbier",
+            "tr": "Paulaner Weissbier",
+            "auto": ""
+          },
+          "desc": null,
+          "price": 15,
+          "priceFrom": false,
+          "amount": null,
+          "unit": "",
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
+          "id": "600dda1ff9b3",
+          "name": {
+            "ru": "Paulaner Lager",
+            "en": "Paulaner Lager",
+            "ka": "Paulaner Lager",
+            "tr": "Paulaner Lager",
+            "auto": ""
+          },
+          "desc": null,
+          "price": 15,
+          "priceFrom": false,
+          "amount": null,
+          "unit": "",
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
           "id": "beer-wheat",
           "name": {
-            "ru": "Пшеничное",
-            "en": "Wheat",
-            "ka": "ხორბლის",
-            "tr": "Buğday birası",
+            "ru": "Pilsner",
+            "en": "Pilsner",
+            "ka": "Pilsner",
+            "tr": "Pilsner",
             "auto": ""
           },
           "desc": {
@@ -900,7 +954,7 @@
             "tr": "",
             "auto": ""
           },
-          "price": 10,
+          "price": 12,
           "priceFrom": false,
           "amount": null,
           "unit": null,
@@ -911,10 +965,10 @@
         {
           "id": "beer-dark",
           "name": {
-            "ru": "Тёмное",
-            "en": "Dark",
-            "ka": "მუქი",
-            "tr": "Koyu bira",
+            "ru": "Löwenbräu",
+            "en": "Löwenbräu",
+            "ka": "Löwenbräu",
+            "tr": "Löwenbräu",
             "auto": ""
           },
           "desc": {
@@ -935,10 +989,10 @@
         {
           "id": "beer-lager",
           "name": {
-            "ru": "Лагер",
-            "en": "Lager",
-            "ka": "ლაგერი",
-            "tr": "Lager",
+            "ru": "Калекцыя Майстра Вечер в Брюгге",
+            "en": "Dark cherry",
+            "ka": "Dark cherry",
+            "tr": "Dark cherry",
             "auto": ""
           },
           "desc": {
@@ -949,6 +1003,30 @@
             "auto": ""
           },
           "price": 12,
+          "priceFrom": false,
+          "amount": null,
+          "unit": null,
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
+          "id": "beer-mead",
+          "name": {
+            "ru": "Калекцыя Майстра IPA",
+            "en": "IPA",
+            "ka": "IPA",
+            "tr": "IPA",
+            "auto": ""
+          },
+          "desc": {
+            "ru": "",
+            "en": "",
+            "ka": "",
+            "tr": "",
+            "auto": ""
+          },
+          "price": 10,
           "priceFrom": false,
           "amount": null,
           "unit": null,
@@ -981,36 +1059,12 @@
           "hidden": false
         },
         {
-          "id": "beer-mead",
-          "name": {
-            "ru": "Медовуха",
-            "en": "Mead",
-            "ka": "მედოვუხა",
-            "tr": "Bal şarabı",
-            "auto": ""
-          },
-          "desc": {
-            "ru": "",
-            "en": "",
-            "ka": "",
-            "tr": "",
-            "auto": ""
-          },
-          "price": 15,
-          "priceFrom": false,
-          "amount": null,
-          "unit": null,
-          "variants": [],
-          "photo": "",
-          "hidden": false
-        },
-        {
           "id": "beer-cider",
           "name": {
-            "ru": "Сидр",
-            "en": "Cider",
-            "ka": "სიდრი",
-            "tr": "Elma şarabı",
+            "ru": "Natakhtari",
+            "en": "Natakhtari",
+            "ka": "ნატახტარი",
+            "tr": "Natakhtari",
             "auto": ""
           },
           "desc": {
@@ -1020,7 +1074,7 @@
             "tr": "",
             "auto": ""
           },
-          "price": 15,
+          "price": 12,
           "priceFrom": false,
           "amount": null,
           "unit": null,
@@ -1029,25 +1083,55 @@
           "hidden": false
         },
         {
-          "id": "beer-special",
+          "id": "276cd30e84b1",
           "name": {
-            "ru": "Специальное предложение",
-            "en": "Special offer",
-            "ka": "სპეციალური შეთავაზება",
-            "tr": "Özel teklif",
+            "ru": "Жигулёвское 6.5%",
+            "en": "Zhigulevskoye",
+            "ka": "Zhigulevskoye",
+            "tr": "Zhigulevskoye",
             "auto": ""
           },
-          "desc": {
-            "ru": "Все новые позиции + возвращение полюбившихся напитков. Ассортимент уточняйте у бармена",
-            "en": "New arrivals + the return of favourite drinks. Ask the bartender about today's selection",
-            "ka": "ახალი პოზიციები + საყვარელი სასმელების დაბრუნება. ასორტიმენტი დააზუსტეთ ბარმენთან",
-            "tr": "Yeni ürünler + sevilen içeceklerin dönüşü. Çeşitler için barmene danışın",
-            "auto": ""
-          },
-          "price": 8,
-          "priceFrom": true,
+          "desc": null,
+          "price": 10,
+          "priceFrom": false,
           "amount": null,
-          "unit": null,
+          "unit": "",
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
+          "id": "68438d3fedf7",
+          "name": {
+            "ru": "Лидское Нулёвачка Пшеничное б/а",
+            "en": "n/a wheat beer",
+            "ka": "n/a wheat beer",
+            "tr": "n/a wheat beer",
+            "auto": ""
+          },
+          "desc": null,
+          "price": 9,
+          "priceFrom": false,
+          "amount": null,
+          "unit": "",
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
+          "id": "3d20b8ee647a",
+          "name": {
+            "ru": "Лидское Нулёвочка б/а",
+            "en": "n/a beer",
+            "ka": "n/a beer",
+            "tr": "n/a beer",
+            "auto": ""
+          },
+          "desc": null,
+          "price": 9,
+          "priceFrom": false,
+          "amount": null,
+          "unit": "",
           "variants": [],
           "photo": "",
           "hidden": false

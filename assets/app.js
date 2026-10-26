@@ -95,6 +95,17 @@
     // подпись «Меню» под заголовком — только там, где она уместна (в файле вкладки "menuLabel": false убирает её)
     // "hideTitle": true — страница без большого заголовка (например «О нас» начинается сразу с приветствия)
     $("hero").hidden = !!tab.hideTitle;
+    if (tab.layout === "event") {
+      // страница ивента: эмодзи, название, подпись с датой
+      // обложка ивента (картинка из админки) — вместо большого значка
+      const top = tab.cover ? `<img class="ev-cover" src="${esc(src(tab.cover))}" alt="" decoding="async">`
+        : tab.emoji ? `<div class="ev-emoji" aria-hidden="true">${esc(tab.emoji)}</div>` : "";
+      // тема оформления: украшения за значком (icon) и картинка-сцена под ним (scene)
+      const th = evTheme(tab) || {};
+      const icon = th.noIcon ? "" : top && th.icon ? `<div class="ev-top">${th.icon()}${top}</div>` : top;
+      $("hero").innerHTML = `${icon}${th.scene ? th.scene() : ""}<h1>${esc(t(tab.title))}</h1>${t(tab.subtitle) ? `<span>${esc(t(tab.subtitle))}</span>` : ""}${t(tab.text) ? `<p class="ev-intro">${esc(t(tab.text))}</p>` : ""}`;
+      return fitHero();
+    }
     $("hero").innerHTML = tab.hideTitle ? "" : `<h1>${esc(t(tab.title))}</h1>${tab.menuLabel === false ? "" : `<span>${esc(u("menu"))}</span>`}`;
     fitHero();
   }
@@ -129,6 +140,8 @@
     const amt = amount(it.amount, it.unit);
     let price = "";
     if (has(it.price)) price = it.priceFrom ? u("priceFrom").replace("{price}", money(it.price)) : money(it.price);
+    // старая цена (на странице ивента) — зачёркнутая перед новой
+    const old = has(it.oldPrice) && has(it.price) ? `<s class="item-old">${esc(money(it.oldPrice))}</s>` : "";
     const vars = (it.variants || []).filter((v) => has(v.price));
     // варианты с подписью (джерки: куриные / свиные) — строками «подпись ··· цена»;
     // без подписи (лимонады 0,5 л / 1 л) — плашками
@@ -140,7 +153,7 @@
     return `<article class="item">
       ${photoHtml(it, sec)}
       <div class="item-body">
-        <div class="item-head"><div class="item-name">${esc(t(it.name))}</div>${price ? `<span class="lead"></span><div class="item-price">${esc(price)}</div>` : ""}</div>
+        <div class="item-head"><div class="item-name">${esc(t(it.name))}</div>${price ? `<span class="lead"></span><div class="item-price">${old}${esc(price)}</div>` : ""}</div>
         ${desc ? `<div class="item-desc">${esc(desc)}</div>` : ""}
         ${labeled ? variants + amtHtml : amtHtml + variants}
       </div>
@@ -216,14 +229,17 @@
       .map((s) => ({ ...s, items: (s.items || []).filter((i) => !i.hidden) }))
       .filter((s) => s.items.length);
 
-    $("content").innerHTML = sections.map((s) => {
+    // украшения темы мероприятия (привидения и т.п.) — по краям, за карточками
+    const deco = tab.layout === "event" && evTheme(tab) && evTheme(tab).content ? evTheme(tab).content() : "";
+    const titleDeco = tab.layout === "event" && evTheme(tab) && evTheme(tab).titleDeco;
+    $("content").innerHTML = deco + sections.map((s, si) => {
       let body;
       if (s.layout === "builder") body = s.items.map((i) => (i.steps || []).length ? builderHtml(i) : `<div class="items">${itemHtml(i, s)}</div>`).join("");
       else if (s.layout === "promo") body = `<div class="items">${s.items.map(promoHtml).join("")}</div>`;
       else body = `<div class="items">${s.items.map((i) => itemHtml(i, s)).join("")}</div>`;
       const note = t(s.note);
       return `<section class="section" id="s-${s.id}" data-section="${s.id}">
-        <h2 class="section-title">${esc(t(s.title))}</h2>
+        <h2 class="section-title">${esc(t(s.title))}${titleDeco ? titleDeco(si) : ""}</h2>
         ${note ? `<p class="section-note">${esc(note)}</p>` : ""}
         ${body}
       </section>`;
@@ -287,6 +303,11 @@
     // «&» в названии стоит ближе к соседним словам (пробелы вокруг него вдвое уже)
     $("brand").innerHTML = esc(settings.name).replace(/ &amp; /g, '<span class="amp">&amp;</span>');
     $("viewerClose").setAttribute("aria-label", u("close"));
+    $("evBackLabel").textContent = u("eventBack");
+    $("evTrashLabel").textContent = u("eventHide");
+    $("evFace").textContent = $("evMiniFace").textContent = tabs.event ? tabs.event.emoji || "★" : "";
+    $("evMini").setAttribute("aria-label", $("evBubble").getAttribute("aria-label") || "");
+    $("evBubble").setAttribute("aria-label", u("eventOpen") + (tabs.event ? ": " + t(tabs.event.title) : ""));
     renderLangs();
     renderTabbar();
     renderHero();
@@ -344,13 +365,189 @@
   function setTab(id, scroll) {
     if (!tabs[id]) id = settings.tabs[0];
     if (id === currentTab) return;
+    const from = currentTab;
     currentTab = id;
+    applyEventMode();
     renderTabbar();
     renderHero();
     renderTab();
     fadeIn();
-    if (scroll) window.scrollTo({ top: 0 });
+    // вернулись со страницы ивента — на то же место меню, где были
+    if (from === "event" && evReturn && evReturn.tab === id) window.scrollTo({ top: evReturn.y });
+    else if (scroll) window.scrollTo({ top: 0 });
     updateChipsBg();
+  }
+
+  // ---------------- ивент (Хеллоуин и т.п.) ----------------
+  // Отдельная страница #event + плавающая кнопка-«пузырь». Включается в админке: галочка и даты «с/по».
+  const EV_POS = "ev-pos", EV_SEEN = "ev-seen";
+  let evReturn = null;     // откуда пришли на страницу ивента: { tab, y }
+  let evHidden = false;
+  let evVisited = false;   // гость уже открывал страницу мероприятия (до перезагрузки) — меню в его оформлении    // гость унёс пузырь в «×» — прячем до обновления страницы (не запоминаем)
+  const today = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`; };
+  const lsGet = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+  const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* приватный режим */ } };
+  // «ключ» ивента: сменили название или даты — для гостей это новый ивент (снова видна точка «новое»)
+  const evKey = () => tabs.event ? `${tabs.event.file}|${tabs.event.dateFrom || ""}|${(tabs.event.title || {}).ru || ""}` : "";
+
+  // тема оформления мероприятия из assets/event-themes.js (поле «Оформление» в админке)
+  const evTheme = (ev) => (ev && ev.theme && window.EVENT_THEMES && window.EVENT_THEMES[ev.theme]) || null;
+
+  function eventActive(ev) {
+    if (!ev || !ev.enabled || !t(ev.title)) return false;
+    const d = today();
+    return (!ev.dateFrom || d >= ev.dateFrom) && (!ev.dateTo || d <= ev.dateTo);
+  }
+
+  // на странице ивента: свой цвет, вместо вкладок — «Вернуться в меню», пузырь спрятан
+  function applyEventMode() {
+    const on = currentTab === "event";
+    document.body.classList.toggle("is-event", on);
+    // оформление (тема) мероприятия: класс theme-<имя> и её CSS-переменные.
+    // «Вау-эффект»: сайт открывается в обычном виде; после страницы мероприятия и всё меню остаётся в его оформлении
+    // (галочка в админке, по умолчанию да) — до перезагрузки страницы. Сцена и крупные украшения — только на странице мероприятия.
+    if (on) evVisited = true;
+    const ev = tabs.event, th = evTheme(ev);
+    const themed = !!th && (on || (evVisited && ev.themeSite !== false));
+    [...document.body.classList].filter((c) => c.startsWith("theme-")).forEach((c) => document.body.classList.remove(c));
+    if (themed) {
+      document.body.classList.add("theme-" + ev.theme);
+      Object.entries(th.vars || {}).forEach(([k, v]) => document.body.style.setProperty(k, v));
+    }
+    // основное меню в оформлении мероприятия — закреплённые фоновые украшения (видны при любой прокрутке)
+    const layer = $("evBgDeco"), wantLayer = themed && !on && th.fixed;
+    if (wantLayer && !layer.childElementCount) layer.innerHTML = th.fixed();
+    if (!wantLayer) layer.innerHTML = "";
+    layer.hidden = !wantLayer;
+    $("evBack").hidden = !on;
+    if (on) lsSet(EV_SEEN, evKey());
+    updateBubble();
+  }
+
+  function updateBubble() {
+    const b = $("evBubble");
+    const show = !!tabs.event && currentTab !== "event" && !evHidden;
+    if (show && b.hidden) {
+      b.hidden = false;
+      placeBubble();
+      b.classList.remove("pop"); void b.offsetWidth; b.classList.add("pop");
+    }
+    if (!show) b.hidden = true;
+    b.classList.toggle("seen", lsGet(EV_SEEN) === evKey());
+    // гость спрятал пузырь — маленькая кнопка в шапке справа от названия (до обновления страницы)
+    const mini = !!tabs.event && currentTab !== "event" && evHidden;
+    const m = $("evMini");
+    if (mini && m.hidden) { m.hidden = false; m.classList.remove("pop"); void m.offsetWidth; m.classList.add("pop"); }
+    if (!mini) m.hidden = true;
+    document.body.classList.toggle("ev-mini-on", mini);
+  }
+
+  // положение пузыря: где гость его отпустил (x — от левого края, b — от низа экрана); запоминается
+  function bubblePos() {
+    let p = null;
+    try { p = JSON.parse(lsGet(EV_POS)); } catch (e) { /* ничего */ }
+    return p && typeof p.x === "number" && typeof p.b === "number" ? p : null;
+  }
+  // ставит пузырь, не давая уйти за края экрана и на нижние вкладки; без сохранённого места — справа над вкладками
+  function placeBubble(p = bubblePos()) {
+    const b = $("evBubble"), w = b.offsetWidth || 62;
+    const tb = $("tabbar").getBoundingClientRect();
+    const minB = (tb.height ? window.innerHeight - tb.top : 90) + 10;
+    const maxB = window.innerHeight - w - 12;
+    const x = Math.max(8, Math.min(window.innerWidth - w - 8, p ? p.x : window.innerWidth - w - 14));
+    const bottom = Math.max(minB, Math.min(maxB, p ? p.b : minB + 30));
+    b.style.left = x + "px";
+    b.style.right = "auto";
+    b.style.top = "auto";
+    b.style.bottom = bottom + "px";
+    return { x, b: bottom };
+  }
+
+  function bindBubble() {
+    const b = $("evBubble"), trash = $("evTrash");
+    try { localStorage.removeItem("ev-hidden"); } catch (e) { /* прежняя версия прятала пузырь до завтра */ }
+    let drag = null;
+    // анимация появления держит размер пузыря — снимаем её, когда доиграла, иначе не сработает «увеличение при перетаскивании»
+    b.addEventListener("animationend", (e) => { if (e.animationName === "ev-pop") b.classList.remove("pop"); });
+    const overTrash = (x, y) => {
+      const r = trash.firstElementChild.getBoundingClientRect();
+      return Math.hypot(x - (r.left + r.width / 2), y - (r.top + r.height / 2)) < 64;
+    };
+    b.addEventListener("pointerdown", (e) => {
+      if (e.button) return;
+      drag = { x: e.clientX, y: e.clientY, on: false, id: e.pointerId };
+    });
+    b.addEventListener("pointermove", (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (!drag.on) {
+        if (Math.hypot(dx, dy) < 8) return;                 // это ещё нажатие, а не перетаскивание
+        drag.on = true;
+        try { b.setPointerCapture(e.pointerId); } catch (err) { /* ничего */ }
+        // пока тащат — привязка к верху экрана: если Safari меняет высоту видимой части,
+        // пузырь не уезжает от пальца (привязка к низу двигала бы его вместе с панелью)
+        // сначала снять анимацию появления (она меняет размер) и включить «без анимаций», потом замерять
+        b.classList.remove("pop");
+        b.classList.add("dragging");
+        b.style.transform = "";
+        b.style.top = b.getBoundingClientRect().top + "px";
+        b.style.bottom = "auto";
+        trash.hidden = false; void trash.offsetWidth; trash.classList.add("show");
+      }
+      b.style.transform = `translate3d(${dx}px, ${dy}px, 0)`;
+      const near = overTrash(e.clientX, e.clientY);
+      if (near !== trash.classList.contains("near")) trash.classList.toggle("near", near);
+    });
+    const end = (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const d = drag; drag = null;
+      // палец отпустили, не перетаскивая, — это нажатие: открываем сразу, не дожидаясь «click»
+      // (iPhone после перетаскивания иногда не присылает click, и прежний флажок «съедал» следующее нажатие)
+      if (!d.on) { if (e.type === "pointerup") openEvent(); return; }
+      // на время «приземления» не анимируем сдвиг, иначе пузырь дёргается от старого места к новому
+      b.style.transition = "scale .25s, opacity .25s, box-shadow .2s";
+      b.classList.remove("dragging");
+      trash.classList.remove("show", "near");
+      setTimeout(() => { if (!trash.classList.contains("show")) trash.hidden = true; }, 250);
+      if (e.type === "pointerup" && overTrash(e.clientX, e.clientY)) {
+        // спрятать до обновления страницы
+        evHidden = true;
+        b.classList.add("gone");
+        setTimeout(() => { b.hidden = true; b.classList.remove("gone"); b.style.transform = ""; b.style.transition = ""; updateBubble(); }, 260);
+        return;
+      }
+      // остаётся ровно там, где отпустили. По центру пузыря: пока его тащат, он чуть увеличен
+      const r = b.getBoundingClientRect(), w = b.offsetWidth;
+      const want = { x: r.left + r.width / 2 - w / 2, b: window.innerHeight - (r.top + r.height / 2 + w / 2) };
+      b.style.transform = "";
+      const p = placeBubble(want);
+      lsSet(EV_POS, JSON.stringify(p));
+      const dx = want.x - p.x, dy = p.b - want.b;
+      if (Math.abs(dx) > .5 || Math.abs(dy) > .5) {
+        // задел край экрана или вкладки — мягко отъезжает внутрь из того места, где отпустили
+        b.style.transform = `translate(${dx}px, ${dy}px)`;
+        void b.offsetWidth;
+        b.style.transition = "";
+        b.style.transform = "";
+      } else {
+        void b.offsetWidth;
+        b.style.transition = "";
+      }
+    };
+    b.addEventListener("pointerup", end);
+    b.addEventListener("pointercancel", end);
+    const openEvent = () => { evReturn = { tab: currentTab, y: window.scrollY }; location.hash = "event"; };
+    // нажатие пальцем/мышью обрабатывает pointerup выше; click здесь — только с клавиатуры (Enter/пробел)
+    b.addEventListener("click", (e) => { if (e.detail === 0) openEvent(); });
+    $("evMini").addEventListener("click", openEvent);
+    $("evMini").addEventListener("animationend", (e) => { if (e.animationName === "ev-pop") e.currentTarget.classList.remove("pop"); });
+    // «Вернуться в меню»: если пришли из меню — шаг назад (на то же место), если по прямой ссылке — на первую вкладку
+    $("evBack").addEventListener("click", (e) => {
+      e.preventDefault();
+      if (evReturn) history.back();
+      else location.hash = settings.tabs[0];
+    });
+    window.addEventListener("resize", () => { if (!b.hidden) placeBubble(); });
   }
 
   function bind() {
@@ -399,6 +596,12 @@
     const unpin = () => { if (pinned) { pinned = null; updateSpy(); } };
     ["touchstart", "wheel", "keydown"].forEach((ev) => window.addEventListener(ev, unpin, { passive: true }));
 
+    // логотип/название в шапке — открыть сайт заново, как по ссылке из QR: с заставкой, первой вкладкой и с самого верха
+    document.querySelector(".brand").addEventListener("click", (e) => {
+      if (e.target.closest(".ev-mini")) return; // мини-кнопка ивента в шапке — своя
+      window.scrollTo(0, 0);
+      location.href = location.pathname;
+    });
     window.addEventListener("hashchange", () => setTab(location.hash.slice(1), true));
     window.addEventListener("resize", fitHero);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHero); // шрифт догрузился — пересчитать
@@ -507,6 +710,22 @@
     ui = uiData;
     tabData.forEach((tb) => { tabs[tb.id] = tb; });
     lang = pickLang();
+    // мероприятие — не вкладка внизу, а отдельная страница #event.
+    // data/events.json — список включённых (собирается при публикации), сами ивенты — data/events/<имя>.json.
+    // Подходят по датам несколько — показываем тот, что начался позже.
+    try {
+      const d = today();
+      const list = ((await load("events")).events || [])
+        .filter((x) => (!x.dateFrom || d >= x.dateFrom) && (!x.dateTo || d <= x.dateTo))
+        .sort((a, b) => (b.dateFrom || "").localeCompare(a.dateFrom || ""));
+      for (const x of list) {
+        const ev = await load("events/" + x.file).catch(() => null);
+        if (!eventActive(ev)) continue;
+        tabs.event = { ...ev, id: "event", layout: "event", file: x.file };
+        if (ev.color) document.documentElement.style.setProperty("--ev", ev.color);
+        break;
+      }
+    } catch (e) { /* мероприятий нет */ }
     const fromHash = location.hash.slice(1);
     currentTab = tabs[fromHash] ? fromHash : settings.tabs[0];
     // настоящее преломление стекла — только там, где браузер это умеет (Chrome, не iPhone)
@@ -516,6 +735,8 @@
     }
     renderAll();
     bind();
+    bindBubble();
+    applyEventMode();
     $("loading").classList.add("done");
   }
 

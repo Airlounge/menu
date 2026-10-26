@@ -40,6 +40,8 @@ body {
   padding-bottom: calc(var(--tabbar-h) + 40px + env(safe-area-inset-bottom));
   -webkit-tap-highlight-color: transparent;
 }
+/* ничего не должно давать сдвинуть страницу вбок (iPhone слушается, только если запрет и у html, и у body) */
+body { overflow-x: clip; }
 button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
 a { color: inherit; }
 
@@ -62,7 +64,7 @@ a { color: inherit; }
   padding: calc(14px + env(safe-area-inset-top)) 10px 6px 16px;
 }
 /* низ букв названия — на одной линии с низом букв RU EN GE TR; значок — по центру высоты букв */
-.brand { display: flex; align-items: center; gap: 9px; min-width: 0; padding-bottom: 3.9px; }
+.brand { display: flex; align-items: center; gap: 9px; min-width: 0; padding-bottom: 3.9px; cursor: pointer; user-select: none; -webkit-user-select: none; }
 /* значок пламени из логотипа; цвет берётся из текста (маска), картинка — assets/flame.png */
 .brand-mark {
   flex: none; width: 25px; height: 34px; background: currentColor; transform: translateY(-.7px);
@@ -422,3 +424,279 @@ html.locked, html.locked body { overflow: hidden; }
 .sheet-list li { display: flex; align-items: baseline; gap: 6px; padding: 6px 0; font-size: 14px; line-height: 1.3; }
 .sheet-list li i { flex: 1; border-bottom: 1px dotted rgba(255,255,255,.18); transform: translateY(-3px); }
 .sheet-list li b { flex: none; font-weight: 500; font-size: 13px; color: var(--amber); }
+
+/* ==========================================================================
+   ИВЕНТ (Хеллоуин и т.п.): плавающая кнопка-«пузырь» и отдельная страница #event.
+   Цвет ивента --ev приходит из админки (data/event.json → color).
+   ========================================================================== */
+:root { --ev: #e8742a; --ev-light: color-mix(in srgb, var(--ev) 55%, #fff); }
+
+.ev-bubble {
+  position: fixed; z-index: 35; right: 14px; bottom: 126px;
+  width: 62px; height: 62px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: radial-gradient(circle at 34% 28%, color-mix(in srgb, var(--ev) 45%, #fff), var(--ev) 58%, color-mix(in srgb, var(--ev) 62%, #000));
+  box-shadow: 0 10px 24px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.45), 0 0 0 1px rgba(255,255,255,.12);
+  touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+  transition: transform .4s cubic-bezier(.3,1.3,.5,1), opacity .25s, scale .25s, box-shadow .2s;
+}
+.ev-bubble[hidden] { display: none; }
+/* пульсация кольцом (быстрая и неширокая), постоянно */
+.ev-bubble::before {
+  content: ""; position: absolute; inset: -2px; border-radius: 50%; pointer-events: none;
+  border: 2px solid var(--ev); animation: ev-pulse 1.7s ease-out infinite;
+}
+@keyframes ev-pulse { 0% { transform: scale(1); opacity: .8; } 75%, 100% { transform: scale(1.28); opacity: 0; } }
+.ev-face { font-size: 31px; line-height: 1; pointer-events: none; filter: drop-shadow(0 1px 1px rgba(0,0,0,.3)); }
+/* белая точка «новое» — пока гость не открыл страницу ивента */
+.ev-dot { position: absolute; top: 3px; right: 3px; width: 13px; height: 13px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2.5px var(--ev); pointer-events: none; }
+.ev-bubble.seen .ev-dot { display: none; }
+.ev-bubble.pop { animation: ev-pop .6s cubic-bezier(.3,1.5,.5,1) .6s both; }
+@keyframes ev-pop { from { opacity: 0; scale: .3; } to { opacity: 1; scale: 1; } }
+/* пока тащат — никаких анимаций и смены размера: только движение точно под пальцем */
+.ev-bubble.dragging { transition: none; will-change: transform; box-shadow: 0 16px 34px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.45); }
+.ev-bubble.dragging::before { animation: none; opacity: 0; }
+.ev-bubble.gone { scale: .2; opacity: 0; }
+
+/* зона «×» — видна только пока пузырь тащат. Стоит над нижними вкладками, а не у самого края:
+   у нижнего края iPhone придерживает касания (жест «домой», панель Safari) — пузырь отставал от пальца */
+.ev-trash {
+  position: fixed; z-index: 34; left: 0; right: 0; bottom: 0; height: 330px; pointer-events: none;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 9px;
+  padding-bottom: calc(var(--tabbar-h) + 44px + env(safe-area-inset-bottom));
+  background: linear-gradient(transparent, rgba(0,0,0,.85));
+  font-size: 13px; letter-spacing: .02em; color: rgba(255,255,255,.82);
+  opacity: 0; transition: opacity .2s;
+}
+.ev-trash[hidden] { display: none; }
+.ev-trash.show { opacity: 1; }
+.ev-x {
+  width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 30px; line-height: 1; border: 1.5px solid rgba(255,255,255,.7); background: rgba(255,255,255,.08);
+  transition: background .12s, border-color .12s;
+}
+/* пузырь над «×» — подсвечивается крестик (сам пузырь не меняется, чтобы не дёргался) */
+.ev-trash.near .ev-x { background: rgba(255,255,255,.3); border-color: #fff; }
+
+/* ---------- страница ивента ---------- */
+.is-event { --amber: var(--ev-light); --accent: var(--ev); }
+.is-event .tabbar { display: none; }
+.is-event .bg::after {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(95% 42% at 50% 0%, color-mix(in srgb, var(--ev) 32%, transparent), transparent 72%);
+}
+.is-event .section-title::after { background: linear-gradient(90deg, color-mix(in srgb, var(--ev) 60%, transparent), transparent); }
+.is-event .hero span { font-style: normal; font-size: 17px; letter-spacing: .04em; color: var(--ev-light); margin-top: 10px; padding: 0 8px; white-space: normal; overflow-wrap: anywhere; }
+.ev-cover { display: block; width: 100%; max-width: 520px; aspect-ratio: 16 / 9; object-fit: cover; margin: -6px auto 18px; border-radius: var(--radius); box-shadow: 0 12px 30px rgba(0,0,0,.4), 0 0 0 1px color-mix(in srgb, var(--ev) 35%, transparent); }
+.ev-emoji { font-size: 56px; line-height: 1; margin-bottom: 12px; animation: ev-float 4s ease-in-out infinite; }
+@keyframes ev-float { 50% { transform: translateY(-6px) rotate(-4deg); } }
+.ev-intro { font-size: 15px; line-height: 1.5; color: var(--muted); max-width: 520px; margin: 14px auto 0; padding: 0 6px; }
+.item-old { margin-right: 6px; font-size: 13px; font-weight: 400; color: var(--muted); text-decoration-thickness: 1px; }
+
+/* «Вернуться в меню» — на месте нижних вкладок, то же «стекло» */
+.ev-back {
+  position: fixed; z-index: 30; left: 50%; transform: translateX(-50%);
+  bottom: max(12px, calc(env(safe-area-inset-bottom) - 10px));
+  height: 54px; padding: 0 24px 0 16px; border-radius: 999px;
+  display: flex; align-items: center; gap: 8px; white-space: nowrap;
+  font-size: 15.5px; letter-spacing: .02em; color: var(--text); text-decoration: none;
+  background: linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,.06));
+  -webkit-backdrop-filter: blur(22px) saturate(1.8); backdrop-filter: blur(22px) saturate(1.8);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), inset 0 0 0 1px rgba(255,255,255,.12), 0 12px 32px rgba(0,0,0,.45);
+}
+.ev-back[hidden] { display: none; }
+.ev-back svg { width: 20px; height: 20px; color: var(--ev-light); }
+
+/* гость спрятал пузырь — маленькая кнопка в шапке справа от названия */
+.ev-mini {
+  position: relative; flex: none; align-self: center; width: 26px; height: 26px; margin-left: -3px; border-radius: 50%;
+  display: grid; place-items: center; transform: translateY(-1px);
+  background: radial-gradient(circle at 34% 28%, color-mix(in srgb, var(--ev) 45%, #fff), var(--ev) 58%, color-mix(in srgb, var(--ev) 62%, #000));
+  box-shadow: 0 3px 8px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.4);
+}
+.ev-mini[hidden] { display: none; }
+.ev-mini span { font-size: 14px; line-height: 1; pointer-events: none; }
+.ev-mini::before {
+  content: ""; position: absolute; inset: -1.5px; border-radius: 50%; pointer-events: none;
+  border: 1.5px solid var(--ev); animation: ev-pulse 1.7s ease-out infinite;
+}
+/* увеличенная зона нажатия, чтобы попадать пальцем */
+.ev-mini::after { content: ""; position: absolute; inset: -9px; }
+.ev-mini.pop { animation: ev-pop .5s cubic-bezier(.3,1.5,.5,1) both; }
+/* пока мини-кнопка видна — кнопки языков чуть уже, чтобы название не обрезалось на узких iPhone */
+.ev-mini-on .langs button { min-width: 28px; }
+.ev-mini-on .topbar { gap: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ev-bubble::before, .ev-mini::before, .ev-emoji { animation: none; }
+}
+
+/* ==========================================================================
+   ТЕМЫ МЕРОПРИЯТИЙ (поле «Оформление» у мероприятия в админке).
+   Украшения рисует assets/event-themes.js; здесь — где они стоят и как двигаются.
+   Всё декоративное: .deco не ловит нажатия и не читается экранным диктором.
+   ========================================================================== */
+.is-event .hero { position: relative; }
+.is-event .content { position: relative; }
+/* украшения — задний фон: карточки и текст лежат поверх них (z-index -1 — ниже обычного содержимого, но выше фона .bg) */
+.deco { position: absolute; pointer-events: none; z-index: -1; }
+.is-event .hero > :not(.deco) { position: relative; z-index: 1; }
+
+/* ---------- Хеллоуин ---------- */
+/* тёмная ночная часть сверху: от шапки до описания, ниже плавно уходит в основной фон */
+.theme-halloween .bg { background: var(--hw-stars) center top / 390px 640px repeat, radial-gradient(130% 70% at 50% 110%, #10130e 0%, #060706 62%) #060706; }
+.theme-halloween .bg::after { display: none; }
+.is-event.theme-halloween .topbar { background: #141812; position: relative; z-index: 2; }
+.is-event.theme-halloween .hero {
+  padding: 0 0 46px; margin-bottom: -20px;
+  /* под рисунком — тот же тёмный цвет, что у земли на рисунке (#060706); ниже он же — фон всей страницы со звёздами */
+  background: linear-gradient(180deg, #060706 0, #060706 calc(100% - 60px), rgba(6,7,6,0) 100%);
+}
+.is-event.theme-halloween .hero::after { display: none; }
+.is-event.theme-halloween .hero h1 { color: #fff; padding-left: calc(.14em + 16px); padding-right: 16px; margin-top: 2px; }
+.is-event.theme-halloween .hero span { color: #ffa63d; text-shadow: 0 0 12px rgba(255,154,50,.45); padding: 0 24px; }   /* цвет горящих глаз тыкв */
+.is-event.theme-halloween .ev-intro { color: rgba(255,255,255,.62); padding: 0 22px; }
+
+/* сцена: луна, кривой замок, кладбище и тыквы-фонари на поле (во всю ширину), летучие мыши поверх */
+.hw-scene { position: relative; margin: 0; background: linear-gradient(180deg, #141812 0%, #0f120d 55%, #0a0c09 100%); }
+.hw-scene-svg { display: block; width: 100%; height: auto; max-height: 300px; }
+.hw-bats { position: absolute; inset: 0; color: #050505; overflow: hidden; }
+/* каждая мышь — полоса во всю ширину сцены; полоса едет слева направо (или наоборот), мышь внутри машет крыльями
+   и слегка ныряет вверх-вниз. Пролетает поверх луны и замка — там её хорошо видно */
+.hw-bats i { position: absolute; left: 0; width: 100%; display: block; animation: hw-fly1 14s ease-in-out infinite; }
+.hw-bats b { display: block; animation: hw-dip 3s ease-in-out infinite, hw-face1 14s linear infinite; }
+.hw-bats svg { display: block; width: 100%; height: auto; animation: hw-flap .32s ease-in-out infinite alternate; transform-origin: 50% 40%; }
+/* координаты по горизонтали — доля ширины сцены (луна и замок — примерно 35–65%) */
+.hw-bats .b1 { top: 22%; }
+.hw-bats .b1 b { width: 30px; }
+.hw-bats .b2 { top: 40%; animation-name: hw-fly2; animation-duration: 18s; animation-delay: -6s; }
+.hw-bats .b2 b { width: 24px; animation: hw-dip 3.6s ease-in-out infinite, hw-face2 18s linear -6s infinite; }
+.hw-bats .b3 { top: 9%; animation-name: hw-fly3; animation-duration: 22s; animation-delay: -11s; }
+.hw-bats .b3 b { width: 18px; animation: hw-dip 2.6s ease-in-out infinite, hw-face3 22s linear -11s infinite; }
+.hw-bats .b4 { top: 55%; animation-name: hw-fly4; animation-duration: 16s; animation-delay: -4s; }
+.hw-bats .b4 b { width: 20px; animation: hw-dip 3.3s ease-in-out infinite, hw-face4 16s linear -4s infinite; }
+.hw-bats .b2 svg, .hw-bats .b3 svg { animation-duration: .26s; }
+/* полёт туда-обратно вокруг луны и замка; hw-faceN разворачивает мышь носом по ходу полёта */
+@keyframes hw-fly1 { 0%, 100% { translate: 28% 0; } 22% { translate: 45% -12px; } 45% { translate: 63% 4px; } 70% { translate: 49% 16px; } }
+@keyframes hw-face1 { 0%, 44.9% { scale: 1 1; } 45%, 100% { scale: -1 1; } }
+@keyframes hw-fly2 { 0%, 100% { translate: 64% 0; } 30% { translate: 44% -10px; } 55% { translate: 27% 6px; } 76% { translate: 42% 14px; } }
+@keyframes hw-face2 { 0%, 54.9% { scale: -1 1; } 55%, 100% { scale: 1 1; } }
+@keyframes hw-fly3 { 0%, 100% { translate: 38% 0; } 50% { translate: 60% 12px; } }
+@keyframes hw-face3 { 0%, 49.9% { scale: 1 1; } 50%, 100% { scale: -1 1; } }
+@keyframes hw-fly4 { 0%, 100% { translate: 60% 0; } 42% { translate: 33% -10px; } }
+@keyframes hw-face4 { 0%, 41.9% { scale: -1 1; } 42%, 100% { scale: 1 1; } }
+@keyframes hw-dip { 0%, 100% { translate: 0 0; } 50% { translate: 0 10px; } }
+@keyframes hw-flap { from { transform: scaleY(1); } to { transform: scaleY(.45); } }
+/* звёзды над замком медленно мерцают */
+/* звёзды над замком мерцают заметно: гаснут почти до нуля и вспыхивают до полной яркости (размер не меняется) */
+.hw-star { animation: hw-star 3.5s ease-in-out infinite; }
+@keyframes hw-star { 0%, 100% { opacity: .05; } 45%, 55% { opacity: 1; } }
+/* крупные звёзды: большую часть времени тусклые, редкая плавная вспышка (~1,5 с) */
+.hw-star-big { animation-name: hw-star-big; animation-timing-function: ease-in-out; }
+@keyframes hw-star-big { 0%, 52%, 100% { opacity: .15; } 68%, 72% { opacity: 1; } 88% { opacity: .15; } }
+/* окна замка: свет по очереди гаснет и снова загорается */
+.hw-win { animation: hw-win 17.5s ease-in-out infinite; }
+@keyframes hw-win { 0%, 30%, 100% { opacity: 1; } 36%, 52% { opacity: 0; } 58% { opacity: 1; } }
+/* тыквы неспешно моргают */
+.hw-eyes { transform-box: fill-box; transform-origin: center; animation: hw-blink 6.5s ease-in-out infinite; }
+@keyframes hw-blink { 0%, 90%, 100% { scale: 1 1; } 94% { scale: 1 .12; } }
+
+/* меню ниже — в той же ночной гамме: лунное золото (рамки, линии, кнопки) и тёплый свет окон (цены) */
+.theme-halloween { --amber: #f2c46d; --accent: #f0d9a3; --hw-moon: 240,217,163; }
+.theme-halloween .chips-bg { background: rgba(6,7,6,.78); box-shadow: 0 1px 0 rgba(var(--hw-moon),.14); }
+.theme-halloween .chip { background: rgba(var(--hw-moon),.04); border-color: rgba(var(--hw-moon),.22); color: rgba(255,255,255,.72); }
+.theme-halloween .chip.active { background: #f0d9a3; border-color: #f0d9a3; color: #141812; box-shadow: 0 0 14px rgba(var(--hw-moon),.35); }
+.theme-halloween .section-title { color: #f7efdc; }
+.theme-halloween .section-title::after { background: linear-gradient(90deg, rgba(var(--hw-moon),.55), transparent); }
+.theme-halloween .item, .theme-halloween .promo {
+  background: linear-gradient(160deg, rgba(var(--hw-moon),.06), rgba(var(--hw-moon),.015) 60%);
+  border-color: rgba(var(--hw-moon),.3);
+  box-shadow: 0 0 18px rgba(var(--hw-moon),.05), inset 0 1px 0 rgba(var(--hw-moon),.08);
+}
+.theme-halloween .item-head .lead { border-color: rgba(var(--hw-moon),.22); }
+.theme-halloween .item-price { color: #f2b45a; text-shadow: 0 0 10px rgba(242,180,90,.35); }
+.theme-halloween .item-old { color: rgba(255,255,255,.4); text-decoration-color: rgba(var(--hw-moon),.7); text-shadow: none; }
+.theme-halloween .item-desc, .theme-halloween .item-amount { color: rgba(255,255,255,.58); }
+.theme-halloween .promo-icon { color: #f2b45a; background: rgba(var(--hw-moon),.05); border-color: rgba(var(--hw-moon),.25); }
+.theme-halloween .footer { color: rgba(255,255,255,.6); }
+.theme-halloween .socials a { border-color: rgba(var(--hw-moon),.22); }
+
+/* основное меню в оформлении мероприятия: закреплённый фон — не прокручивается, виден на любой глубине страницы */
+/* высота — всегда «полный экран» (100lvh, как у .bg): iPhone прячет/показывает панели Safari при прокрутке,
+   и при высоте по видимой части череп и дьявол пересчитывали положение и прыгали */
+.ev-bg-deco { position: fixed; left: 0; top: 0; width: 100%; height: 100vh; height: 100lvh; z-index: -1; pointer-events: none; overflow: hidden; transform: translateZ(0); }
+.ev-bg-deco[hidden] { display: none; }
+.ev-bg-deco .hw-web { top: 52px; left: -4px; }   /* ниже липкой ленты разделов */
+.ev-bg-deco .hw-spider { top: 52px; }
+.ev-bg-deco .hw-skull { top: 38%; }
+.ev-bg-deco .hw-devil { top: auto; bottom: 175px; }   /* с запасом: при показанных панелях Safari низ экрана выше */
+
+/* фон за меню: большая паутина с пауком (лунного оттенка), мерцающие звёзды, привидения */
+.hw-web { top: 10px; left: -4px; width: 52vw; max-width: 300px; aspect-ratio: 1; color: rgba(var(--hw-moon),.12); }
+.hw-web svg { display: block; width: 100%; height: 100%; }
+.hw-spider { top: 10px; left: min(24vw, 140px); width: 22px; color: #0d0d0d; transform-origin: 50% 0; animation: hw-swing 5s ease-in-out infinite; }
+.hw-spider i { display: block; width: 1px; height: 120px; margin: 0 auto; background: linear-gradient(rgba(var(--hw-moon),.06), rgba(var(--hw-moon),.3)); }
+.hw-spider svg { display: block; width: 22px; height: auto; margin-top: -2px; filter: drop-shadow(0 0 1.5px rgba(242,180,90,.6)); }
+@keyframes hw-swing { 0%, 100% { transform: rotate(4deg); } 50% { transform: rotate(-4deg) translateY(8px); } }
+
+/* несколько звёзд мерцают (остальные — неподвижный звёздный фон страницы) */
+.hw-twinkle { inset: 0; }
+.hw-twinkle i { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #fff8e4; box-shadow: 0 0 6px 1px rgba(246,226,176,.7); opacity: .15; animation: hw-twinkle 3.6s ease-in-out infinite; }
+.hw-twinkle i:nth-child(1) { display: none; }  /* стояла у котла — путалась с пузырьками */
+.hw-twinkle i:nth-child(2) { top: 17%; left: 6%; animation-delay: -1.2s; }
+.hw-twinkle i:nth-child(3) { top: 29%; left: 95%; animation-delay: -2.4s; animation-duration: 4.4s; }
+.hw-twinkle i:nth-child(4) { top: 41%; left: 2%; animation-delay: -.6s; }
+.hw-twinkle i:nth-child(5) { top: 53%; left: 92%; animation-delay: -3s; animation-duration: 5s; }
+.hw-twinkle i:nth-child(6) { top: 64%; left: 48%; animation-delay: -1.8s; width: 2px; height: 2px; }
+.hw-twinkle i:nth-child(7) { top: 76%; left: 4%; animation-delay: -2.8s; animation-duration: 4.2s; }
+.hw-twinkle i:nth-child(8) { top: 87%; left: 90%; animation-delay: -.3s; }
+.hw-twinkle i:nth-child(9) { top: 96%; left: 30%; animation-delay: -2s; width: 2px; height: 2px; }
+@keyframes hw-twinkle { 0%, 100% { opacity: .12; transform: scale(.7); } 50% { opacity: .9; transform: scale(1.15); } }
+
+/* подвал: привидение слева и мумия справа от иконок соцсетей (там всегда пусто, при любой высоте экрана) */
+.theme-halloween .footer { position: relative; }
+.theme-halloween .footer::before, .theme-halloween .footer::after {
+  content: ""; position: absolute; z-index: -1; pointer-events: none; background: center / contain no-repeat;
+}
+.theme-halloween .footer::before { width: 62px; height: 82px; left: 8px; bottom: 0; background-image: var(--hw-ghost); rotate: -8deg; opacity: .9; animation: hw-float 7s ease-in-out infinite; }
+.theme-halloween .footer::after { width: 46px; height: 54px; right: 12px; bottom: 10px; background-image: var(--hw-mummy); rotate: 12deg; opacity: .8; }
+
+/* предметы в конце строки с названием раздела — справа, на месте линии, текст не закрывают */
+.hw-title-item { order: 2; flex: none; display: block; height: 40px; margin: -10px -2px -8px 0; opacity: .9; position: relative; z-index: -1; }
+.hw-ti-lollipop svg { rotate: 30deg; }
+.hw-title-item svg { display: block; height: 100%; width: auto; filter: drop-shadow(0 0 6px rgba(242,180,90,.18)); }
+
+.hw-item svg { display: block; width: 100%; height: auto; }
+.hw-item { opacity: .8; }
+/* коса — слева над заголовком второго раздела, в промежутке между карточками */
+.theme-halloween .section-title { position: relative; }
+.hw-title-left { position: absolute; z-index: -1; width: 52px; left: -42px; top: -88px; rotate: 6deg; opacity: .85; pointer-events: none; }
+/* коса — небольшой замах вокруг конца древка */
+.hw-title-left svg { transform-origin: 14% 94%; animation: hw-swing-scythe 3.2s ease-in-out infinite; }
+@keyframes hw-swing-scythe { 0%, 100% { rotate: -5deg; } 45% { rotate: 9deg; } 60% { rotate: 7deg; } }
+/* котёл — пузырьки поднимаются и мерцают, будто зелье бурлит */
+.hw-bub { transform-box: fill-box; transform-origin: center; animation: hw-bubble 2s ease-in-out infinite; }
+@keyframes hw-bubble { 0% { opacity: 0; translate: 0 3px; scale: .6; } 35% { opacity: .9; } 70% { opacity: .6; } 100% { opacity: 0; translate: 0 -4px; scale: 1.1; } }
+/* кукла вуду — левая и правая булавки втыкаются и вытаскиваются */
+.hw-pin-l, .hw-pin-r { transform-box: view-box; animation: hw-pin-l 2.4s ease-in-out infinite; }
+.hw-pin-r { animation-name: hw-pin-r; animation-delay: -1.2s; }
+@keyframes hw-pin-l { 0%, 100% { translate: 0 0; } 50% { translate: -3.4px -2.2px; } }
+@keyframes hw-pin-r { 0%, 100% { translate: 0 0; } 50% { translate: 3.6px -1.5px; } }
+.hw-title-left svg { display: block; width: 100%; height: auto; }
+/* бутылка яда — в подвале справа от строки «…свои напитки» */
+.theme-halloween .footer .rule::after {
+  content: ""; position: absolute; z-index: -1; right: 4px; top: 14px; width: 26px; height: 42px; rotate: -14deg;
+  background: var(--hw-poison) center / contain no-repeat; opacity: .85; pointer-events: none;
+}
+/* ближе к середине, под текстом — почти прозрачные, чтобы текст читался */
+.hw-faint { opacity: .13; }
+.hw-skull { width: 92px; top: 44%; left: 50%; margin-left: -46px; rotate: -8deg; }
+.hw-devil { width: 104px; top: 77%; left: 50%; margin-left: -10px; rotate: 10deg; }
+/* внизу меню: зомби выглядывает из-за левого края у последней карточки (на краю нет текста) */
+.hw-zombie { width: 60px; bottom: 22px; left: -27px; rotate: -10deg; animation: hw-peek 6s ease-in-out infinite; }
+@keyframes hw-peek { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+@keyframes hw-float { 0%, 100% { translate: 0 0; } 50% { translate: 6px -14px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .hw-bats i, .hw-bats b, .hw-bats svg, .hw-star, .hw-win, .hw-eyes, .hw-spider, .hw-ghost, .hw-twinkle i, .hw-zombie, .theme-halloween .footer::before, .hw-title-left svg, .hw-bub, .hw-pin-l, .hw-pin-r { animation: none; }
+}

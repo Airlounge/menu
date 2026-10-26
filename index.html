@@ -12,14 +12,16 @@
   <link rel="preload" href="assets/bg.webp?v=6" as="image" media="(max-aspect-ratio: 1/1)">
   <link rel="preload" href="assets/bg-wide.webp?v=6" as="image" media="(min-aspect-ratio: 1/1)">
   <link rel="preload" href="assets/flame-big.png?v=1" as="image">
-  <link rel="stylesheet" href="assets/style.css?v=54">
+  <link rel="stylesheet" href="assets/style.css?v=94">
 </head>
 <body>
   <!-- фон: готовая картинка assets/bg.webp (рисует tools/render_background.py) -->
   <div class="bg" aria-hidden="true"></div>
+  <!-- основное меню в оформлении мероприятия: закреплённые фоновые украшения (заполняет app.js) -->
+  <div class="ev-bg-deco" id="evBgDeco" aria-hidden="true" hidden></div>
 
   <header class="topbar">
-    <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span class="brand-name" id="brand">AIR LOUNGE <span class="amp">&amp;</span> BAR</span></div>
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span><span class="brand-name" id="brand">AIR LOUNGE <span class="amp">&amp;</span> BAR</span><button class="ev-mini" id="evMini" type="button" hidden><span id="evMiniFace"></span></button></div>
     <nav class="langs" id="langs" aria-label="Language"></nav>
   </header>
 
@@ -35,6 +37,13 @@
     <span class="lens" aria-hidden="true"></span>
     <div class="tabs" id="tabs"></div>
   </nav>
+
+  <!-- страница ивента: вместо нижних вкладок — кнопка «Вернуться в меню» -->
+  <a class="ev-back" id="evBack" href="#" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span id="evBackLabel"></span></a>
+
+  <!-- кнопка ивента (как у Wolt): двигается пальцем, унести вниз в «×» — спрятать до завтра -->
+  <div class="ev-trash" id="evTrash" hidden><span class="ev-x" aria-hidden="true">×</span><span id="evTrashLabel"></span></div>
+  <button class="ev-bubble" id="evBubble" type="button" hidden><span class="ev-face" id="evFace"></span><span class="ev-dot" aria-hidden="true"></span></button>
 
   <!-- преломление для «жидкого стекла» (работает в Chrome/Android, на iPhone — обычное стекло) -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -62,6 +71,7 @@
 
   <div class="loading" id="loading"><div class="loading-box"><i class="loading-mark" aria-hidden="true"></i><span>AIR LOUNGE & BAR</span></div></div>
 
-  <script src="assets/app.js?v=58"></script>
+  <script src="assets/event-themes.js?v=22"></script>
+  <script src="assets/app.js?v=75"></script>
 </body>
 </html>

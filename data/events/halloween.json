@@ -1,47 +1,53 @@
 {
   "code": "halloween",
-  "enabled": false,
-  "dateFrom": "2026-10-24",
+  "enabled": true,
+  "dateFrom": "2026-10-26",
   "dateTo": "2026-11-01",
   "emoji": "🎃",
   "color": "#E8742A",
   "cover": "",
+  "themeSite": true,
   "theme": "halloween",
   "title": {
     "ru": "Хеллоуин",
     "en": "Halloween",
     "ka": "ჰელოუინი",
-    "tr": "Cadılar Bayramı"
+    "tr": "Cadılar Bayramı",
+    "auto": ""
   },
   "subtitle": {
     "ru": "30–31 октября · спецменю",
     "en": "October 30–31 · special menu",
     "ka": "30–31 ოქტომბერი · სპეციალური მენიუ",
-    "tr": "30–31 Ekim · özel menü"
+    "tr": "30–31 Ekim · özel menü",
+    "auto": ""
   },
   "text": {
     "ru": "«Кровавые» коктейли, кальян на настоящей тыкве и беспроигрышная лотерея.",
     "en": "“Bloody” cocktails, a hookah on a real pumpkin and a no-lose lottery.",
     "ka": "„სისხლიანი“ კოქტეილები, ჩილიმი ნამდვილ გოგრაზე და წაგების გარეშე ლატარია.",
-    "tr": "“Kanlı” kokteyller, gerçek balkabağı üzerinde nargile ve boş çıkmayan çekiliş."
+    "tr": "“Kanlı” kokteyller, gerçek balkabağı üzerinde nargile ve boş çıkmayan çekiliş.",
+    "auto": ""
   },
   "sections": [
     {
       "id": "ev-cocktails",
       "layout": "list",
-      "icon": "cocktail",
       "title": {
         "ru": "Коктейли",
         "en": "Cocktails",
         "ka": "კოქტეილები",
-        "tr": "Kokteyller"
+        "tr": "Kokteyller",
+        "auto": ""
       },
       "note": {
         "ru": "",
         "en": "",
         "ka": "",
-        "tr": ""
+        "tr": "",
+        "auto": ""
       },
+      "icon": "cocktail",
       "items": [
         {
           "id": "ev-devils-eye",
@@ -49,18 +55,21 @@
             "ru": "Око дьявола",
             "en": "Devil's Eye",
             "ka": "ეშმაკის თვალი",
-            "tr": "Şeytanın Gözü"
+            "tr": "Şeytanın Gözü",
+            "auto": ""
           },
           "desc": {
             "ru": "Лимончелло, просекко, малиновый ликёр",
             "en": "Limoncello, prosecco, raspberry liqueur",
             "ka": "ლიმონჩელო, პროსეკო, ჟოლოს ლიქიორი",
-            "tr": "Limoncello, prosecco, ahududu likörü"
+            "tr": "Limoncello, prosecco, ahududu likörü",
+            "auto": ""
           },
           "price": 19.99,
-          "oldPrice": "",
-          "amount": "",
+          "oldPrice": null,
+          "amount": null,
           "unit": "",
+          "icon": "cocktail",
           "hidden": false
         },
         {
@@ -69,18 +78,21 @@
             "ru": "Bloody Spritz",
             "en": "Bloody Spritz",
             "ka": "Bloody Spritz",
-            "tr": "Bloody Spritz"
+            "tr": "Bloody Spritz",
+            "auto": ""
           },
           "desc": {
             "ru": "Мартини вермут, просекко, швепс, смородиновый ликёр",
             "en": "Martini vermouth, prosecco, Schweppes, blackcurrant liqueur",
             "ka": "მარტინი ვერმუტი, პროსეკო, შვეპსი, მოცხარის ლიქიორი",
-            "tr": "Martini vermut, prosecco, Schweppes, frenk üzümü likörü"
+            "tr": "Martini vermut, prosecco, Schweppes, frenk üzümü likörü",
+            "auto": ""
           },
           "price": 19.99,
-          "oldPrice": "",
-          "amount": "",
+          "oldPrice": null,
+          "amount": null,
           "unit": "",
+          "icon": "cocktail",
           "hidden": false
         }
       ]
@@ -88,19 +100,21 @@
     {
       "id": "ev-shots",
       "layout": "list",
-      "icon": "shot",
       "title": {
         "ru": "Шоты",
         "en": "Shots",
         "ka": "შოტები",
-        "tr": "Shotlar"
+        "tr": "Shotlar",
+        "auto": ""
       },
       "note": {
         "ru": "",
         "en": "",
         "ka": "",
-        "tr": ""
+        "tr": "",
+        "auto": ""
       },
+      "icon": "shot",
       "items": [
         {
           "id": "ev-frankenstein",
@@ -108,18 +122,21 @@
             "ru": "Потроха Франкенштейна",
             "en": "Frankenstein's Guts",
             "ka": "ფრანკენშტეინის შიგნეულობა",
-            "tr": "Frankenstein'ın Bağırsakları"
+            "tr": "Frankenstein'ın Bağırsakları",
+            "auto": ""
           },
           "desc": {
             "ru": "",
             "en": "",
             "ka": "",
-            "tr": ""
+            "tr": "",
+            "auto": ""
           },
           "price": 6.66,
-          "oldPrice": "",
-          "amount": "",
+          "oldPrice": null,
+          "amount": null,
           "unit": "",
+          "icon": "cocktail",
           "hidden": false
         }
       ]
@@ -127,19 +144,21 @@
     {
       "id": "ev-hookah",
       "layout": "list",
-      "icon": "hookah",
       "title": {
         "ru": "Кальян",
         "en": "Hookah",
         "ka": "ჩილიმი",
-        "tr": "Nargile"
+        "tr": "Nargile",
+        "auto": ""
       },
       "note": {
         "ru": "",
         "en": "",
         "ka": "",
-        "tr": ""
+        "tr": "",
+        "auto": ""
       },
+      "icon": "hookah",
       "items": [
         {
           "id": "ev-pumpkin-hookah",
@@ -147,18 +166,21 @@
             "ru": "Pumpkin кальян",
             "en": "Pumpkin hookah",
             "ka": "Pumpkin ჩილიმი",
-            "tr": "Pumpkin nargile"
+            "tr": "Pumpkin nargile",
+            "auto": ""
           },
           "desc": {
             "ru": "Уникальная чаша из тыквы",
             "en": "A unique bowl made from a pumpkin",
             "ka": "უნიკალური თასი გოგრისგან",
-            "tr": "Balkabağından eşsiz lüle"
+            "tr": "Balkabağından eşsiz lüle",
+            "auto": ""
           },
           "price": 79.99,
-          "oldPrice": "",
-          "amount": "",
+          "oldPrice": null,
+          "amount": null,
           "unit": "",
+          "icon": "cocktail",
           "hidden": false
         }
       ]
@@ -166,35 +188,43 @@
     {
       "id": "ev-gifts",
       "layout": "promo",
-      "icon": "gift",
       "title": {
         "ru": "Подарки",
         "en": "Gifts",
         "ka": "საჩუქრები",
-        "tr": "Hediyeler"
+        "tr": "Hediyeler",
+        "auto": ""
       },
       "note": {
         "ru": "",
         "en": "",
         "ka": "",
-        "tr": ""
+        "tr": "",
+        "auto": ""
       },
+      "icon": "gift",
       "items": [
         {
           "id": "ev-lottery",
-          "icon": "gift",
           "name": {
             "ru": "Беспроигрышная лотерея",
             "en": "No-lose lottery",
             "ka": "წაგების გარეშე ლატარია",
-            "tr": "Boş çıkmayan çekiliş"
+            "tr": "Boş çıkmayan çekiliş",
+            "auto": ""
           },
           "desc": {
             "ru": "Вас ждёт беспроигрышная лотерея при чеке от 99,99 ₾.",
             "en": "A no-lose lottery awaits you with a bill of 99.99 ₾ or more.",
             "ka": "წაგების გარეშე ლატარია გელით 99.99 ₾-დან ანგარიშზე.",
-            "tr": "99,99 ₾ ve üzeri hesaplarda boş çıkmayan çekiliş sizi bekliyor."
+            "tr": "99,99 ₾ ve üzeri hesaplarda boş çıkmayan çekiliş sizi bekliyor.",
+            "auto": ""
           },
+          "price": null,
+          "oldPrice": null,
+          "amount": null,
+          "unit": "",
+          "icon": "gift",
           "hidden": false
         }
       ]

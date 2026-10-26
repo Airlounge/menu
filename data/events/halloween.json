@@ -20,10 +20,10 @@
     "tr": "30–31 Ekim · özel menü"
   },
   "text": {
-    "ru": "Тыквенные кальяны, «кровавые» коктейли и подарки за лучший костюм. Предложения действуют до 1 ноября.",
-    "en": "Pumpkin hookahs, “bloody” cocktails and gifts for the best costume. Offers are valid until November 1.",
-    "ka": "გოგრის ჩილიმები, „სისხლიანი“ კოქტეილები და საჩუქრები საუკეთესო კოსტიუმისთვის. შეთავაზებები მოქმედებს 1 ნოემბრამდე.",
-    "tr": "Balkabaklı nargileler, “kanlı” kokteyller ve en iyi kostüme hediyeler. Teklifler 1 Kasım'a kadar geçerlidir."
+    "ru": "«Кровавые» коктейли, кальян в настоящей тыкве и беспроигрышная лотерея.",
+    "en": "“Bloody” cocktails, a hookah in a real pumpkin and a no-lose lottery.",
+    "ka": "„სისხლიანი“ კოქტეილები, ჩილიმი ნამდვილ გოგრაში და წაგების გარეშე ლატარია.",
+    "tr": "“Kanlı” kokteyller, gerçek balkabağında nargile ve boş çıkmayan çekiliş."
   },
   "sections": [
     {
@@ -44,43 +44,63 @@
       },
       "items": [
         {
-          "id": "ev-bloody-mary",
+          "id": "ev-devils-eye",
           "name": {
-            "ru": "«Кровавая Мэри» ×2",
-            "en": "Bloody Mary ×2",
-            "ka": "„ბლადი მერი“ ×2",
-            "tr": "Bloody Mary ×2"
+            "ru": "Око дьявола",
+            "en": "Devil's Eye",
+            "ka": "ეშმაკის თვალი",
+            "tr": "Şeytanın Gözü"
           },
           "desc": {
-            "ru": "Два коктейля по цене полутора",
-            "en": "Two cocktails for the price of one and a half",
-            "ka": "ორი კოქტეილი ერთნახევრის ფასად",
-            "tr": "Bir buçuk fiyatına iki kokteyl"
+            "ru": "Лимончелло, просекко, малиновый ликёр",
+            "en": "Limoncello, prosecco, raspberry liqueur",
+            "ka": "ლიმონჩელო, პროსეკო, ჟოლოს ლიქიორი",
+            "tr": "Limoncello, prosecco, ahududu likörü"
           },
-          "price": 28,
-          "oldPrice": 36,
+          "price": 19.99,
+          "oldPrice": "",
           "amount": "",
           "unit": "",
           "hidden": false
         },
         {
-          "id": "ev-witch-brew",
+          "id": "ev-bloody-spritz",
           "name": {
-            "ru": "Ведьмино зелье",
-            "en": "Witch's Brew",
-            "ka": "კუდიანის წამალი",
-            "tr": "Cadı İksiri"
+            "ru": "Bloody Spritz",
+            "en": "Bloody Spritz",
+            "ka": "Bloody Spritz",
+            "tr": "Bloody Spritz"
           },
           "desc": {
-            "ru": "Ром, блю кюрасао, лайм, дым",
-            "en": "Rum, blue curaçao, lime, smoke",
-            "ka": "რომი, ბლუ კიურასაო, ლაიმი, კვამლი",
-            "tr": "Rom, blue curaçao, misket limonu, duman"
+            "ru": "Мартини вермут, просекко, швепс, смородиновый ликёр",
+            "en": "Martini vermouth, prosecco, Schweppes, blackcurrant liqueur",
+            "ka": "მარტინი ვერმუტი, პროსეკო, შვეპსი, მოცხარის ლიქიორი",
+            "tr": "Martini vermut, prosecco, Schweppes, frenk üzümü likörü"
           },
-          "price": 26,
+          "price": 19.99,
           "oldPrice": "",
-          "amount": 200,
-          "unit": "ml",
+          "amount": "",
+          "unit": "",
+          "hidden": false
+        },
+        {
+          "id": "ev-frankenstein",
+          "name": {
+            "ru": "Потроха Франкенштейна",
+            "en": "Frankenstein's Guts",
+            "ka": "ფრანკენშტეინის შიგნეულობა",
+            "tr": "Frankenstein'ın Bağırsakları"
+          },
+          "desc": {
+            "ru": "Шот",
+            "en": "Shot",
+            "ka": "შოტი",
+            "tr": "Shot"
+          },
+          "price": 6.66,
+          "oldPrice": "",
+          "amount": "",
+          "unit": "",
           "hidden": false
         }
       ]
@@ -103,20 +123,20 @@
       },
       "items": [
         {
-          "id": "ev-pumpkin-pie",
+          "id": "ev-pumpkin-hookah",
           "name": {
-            "ru": "Кальян «Тыквенный пирог»",
-            "en": "“Pumpkin Pie” hookah",
-            "ka": "ჩილიმი „გოგრის ღვეზელი“",
-            "tr": "“Balkabağı Turtası” nargile"
+            "ru": "Pumpkin кальян",
+            "en": "Pumpkin hookah",
+            "ka": "Pumpkin ჩილიმი",
+            "tr": "Pumpkin nargile"
           },
           "desc": {
-            "ru": "Пряная тыква, корица, ваниль",
-            "en": "Spiced pumpkin, cinnamon, vanilla",
-            "ka": "სანელებლიანი გოგრა, დარიჩინი, ვანილი",
-            "tr": "Baharatlı balkabağı, tarçın, vanilya"
+            "ru": "Уникальная чаша из тыквы",
+            "en": "A unique bowl made from a pumpkin",
+            "ka": "უნიკალური თასი გოგრისგან",
+            "tr": "Balkabağından eşsiz lüle"
           },
-          "price": 55,
+          "price": 79.99,
           "oldPrice": "",
           "amount": "",
           "unit": "",
@@ -142,19 +162,19 @@
       },
       "items": [
         {
-          "id": "ev-costume",
-          "icon": "crown",
+          "id": "ev-lottery",
+          "icon": "gift",
           "name": {
-            "ru": "Пришёл в костюме — шот в подарок",
-            "en": "Come in costume — get a free shot",
-            "ka": "მოდი კოსტიუმით — შოტი საჩუქრად",
-            "tr": "Kostümle gel — shot bizden"
+            "ru": "Беспроигрышная лотерея",
+            "en": "No-lose lottery",
+            "ka": "წაგების გარეშე ლატარია",
+            "tr": "Boş çıkmayan çekiliş"
           },
           "desc": {
-            "ru": "А за самый страшный образ вечера — кальян бесплатно.",
-            "en": "And the scariest look of the night gets a free hookah.",
-            "ka": "საღამოს ყველაზე საშიში იმიჯისთვის კი — ჩილიმი უფასოდ.",
-            "tr": "Gecenin en korkunç kostümüne nargile bedava."
+            "ru": "Вас ждёт беспроигрышная лотерея при чеке от 99,99 ₾.",
+            "en": "A no-lose lottery awaits you with a bill of 99.99 ₾ or more.",
+            "ka": "წაგების გარეშე ლატარია გელით 99.99 ₾-დან ანგარიშზე.",
+            "tr": "99,99 ₾ ve üzeri hesaplarda boş çıkmayan çekiliş sizi bekliyor."
           },
           "hidden": false
         }

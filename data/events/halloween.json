@@ -20,10 +20,10 @@
     "tr": "30–31 Ekim · özel menü"
   },
   "text": {
-    "ru": "«Кровавые» коктейли, кальян в настоящей тыкве и беспроигрышная лотерея.",
-    "en": "“Bloody” cocktails, a hookah in a real pumpkin and a no-lose lottery.",
-    "ka": "„სისხლიანი“ კოქტეილები, ჩილიმი ნამდვილ გოგრაში და წაგების გარეშე ლატარია.",
-    "tr": "“Kanlı” kokteyller, gerçek balkabağında nargile ve boş çıkmayan çekiliş."
+    "ru": "«Кровавые» коктейли, кальян на настоящей тыкве и беспроигрышная лотерея.",
+    "en": "“Bloody” cocktails, a hookah on a real pumpkin and a no-lose lottery.",
+    "ka": "„სისხლიანი“ კოქტეილები, ჩილიმი ნამდვილ გოგრაზე და წაგების გარეშე ლატარია.",
+    "tr": "“Kanlı” kokteyller, gerçek balkabağı üzerinde nargile ve boş çıkmayan çekiliş."
   },
   "sections": [
     {
@@ -82,7 +82,26 @@
           "amount": "",
           "unit": "",
           "hidden": false
-        },
+        }
+      ]
+    },
+    {
+      "id": "ev-shots",
+      "layout": "list",
+      "icon": "shot",
+      "title": {
+        "ru": "Шоты",
+        "en": "Shots",
+        "ka": "შოტები",
+        "tr": "Shotlar"
+      },
+      "note": {
+        "ru": "",
+        "en": "",
+        "ka": "",
+        "tr": ""
+      },
+      "items": [
         {
           "id": "ev-frankenstein",
           "name": {
@@ -92,10 +111,10 @@
             "tr": "Frankenstein'ın Bağırsakları"
           },
           "desc": {
-            "ru": "Шот",
-            "en": "Shot",
-            "ka": "შოტი",
-            "tr": "Shot"
+            "ru": "",
+            "en": "",
+            "ka": "",
+            "tr": ""
           },
           "price": 6.66,
           "oldPrice": "",

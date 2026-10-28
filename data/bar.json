@@ -1135,6 +1135,24 @@
           "variants": [],
           "photo": "",
           "hidden": false
+        },
+        {
+          "id": "da6c8bb4d665",
+          "name": {
+            "ru": "Калекцыя Майстра пшеничное",
+            "en": "Wheat beer",
+            "ka": "Wheat beer",
+            "tr": "Wheat beer",
+            "auto": ""
+          },
+          "desc": null,
+          "price": 12,
+          "priceFrom": false,
+          "amount": null,
+          "unit": "",
+          "variants": [],
+          "photo": "",
+          "hidden": false
         }
       ]
     },

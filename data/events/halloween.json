@@ -181,7 +181,7 @@
           "amount": null,
           "unit": "",
           "icon": "cocktail",
-          "hidden": false
+          "hidden": true
         }
       ]
     },

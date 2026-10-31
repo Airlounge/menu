@@ -468,10 +468,10 @@
             "auto": ""
           },
           "desc": {
-            "ru": "лимончелло, швепс, содовая, апельсин, мартини",
-            "en": "limoncello, Schweppes, soda, orange, Martini",
-            "ka": "ლიმონჩელო, შვეპსი, სოდა, ფორთოხალი, მარტინი",
-            "tr": "limoncello, Schweppes, soda, portakal, Martini",
+            "ru": "лимончелло, швепс, содовая, апельсин, просекко",
+            "en": "limoncello, Schweppes, soda, orange, prosecco",
+            "ka": "ლიმონჩელო, შვეპსი, სოდა, ფორთოხალი, პროსეკო",
+            "tr": "limoncello, Schweppes, soda, portakal, prosecco",
             "auto": ""
           },
           "price": 20,
@@ -636,10 +636,10 @@
             "auto": ""
           },
           "desc": {
-            "ru": "апероль, швепс, содовая, апельсин, мартини",
-            "en": "Aperol, Schweppes, soda, orange, Martini",
-            "ka": "აპეროლი, შვეპსი, სოდა, ფორთოხალი, მარტინი",
-            "tr": "Aperol, Schweppes, soda, portakal, Martini",
+            "ru": "апероль, швепс, содовая, апельсин, просекко",
+            "en": "Aperol, Schweppes, soda, orange, prosecco",
+            "ka": "აპეროლი, შვეპსი, სოდა, ფორთოხალი, პროსეკო",
+            "tr": "Aperol, Schweppes, soda, portakal, prosecco",
             "auto": ""
           },
           "price": 20,

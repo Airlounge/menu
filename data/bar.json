@@ -243,7 +243,7 @@
           "unit": null,
           "variants": [],
           "photo": "",
-          "hidden": false
+          "hidden": true
         },
         {
           "id": "old-fashioned",
@@ -363,7 +363,7 @@
           "unit": null,
           "variants": [],
           "photo": "",
-          "hidden": false
+          "hidden": true
         }
       ]
     },
@@ -432,7 +432,7 @@
           "unit": null,
           "variants": [],
           "photo": "",
-          "hidden": false
+          "hidden": true
         },
         {
           "id": "cosmo-flower",
@@ -504,7 +504,7 @@
           "unit": null,
           "variants": [],
           "photo": "",
-          "hidden": false
+          "hidden": true
         },
         {
           "id": "lemon-pie",
@@ -576,7 +576,7 @@
           "unit": null,
           "variants": [],
           "photo": "",
-          "hidden": false
+          "hidden": true
         },
         {
           "id": "espresso-tonic",
@@ -672,7 +672,7 @@
           "unit": null,
           "variants": [],
           "photo": "",
-          "hidden": false
+          "hidden": true
         }
       ]
     },

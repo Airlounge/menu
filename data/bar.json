@@ -2729,7 +2729,7 @@
           "tr": "Kendini barmen gibi hisset ve kokteylini kendin oluştur",
           "auto": ""
         },
-        "price": 20,
+        "price": 22,
         "steps": [
           {
             "title": {
@@ -2831,7 +2831,7 @@
           "tr": "Araç kullananlar için özel bir teklifimiz var",
           "auto": ""
         },
-        "price": 12,
+        "price": 14,
         "steps": [],
         "photo": "",
         "hidden": false

@@ -1624,7 +1624,7 @@
           "variants": [
             {
               "label": null,
-              "amount": 0.4,
+              "amount": 0.5,
               "unit": "l",
               "price": 12
             },
@@ -1661,7 +1661,7 @@
           "variants": [
             {
               "label": null,
-              "amount": 0.4,
+              "amount": 0.5,
               "unit": "l",
               "price": 12
             },
@@ -1698,7 +1698,7 @@
           "variants": [
             {
               "label": null,
-              "amount": 0.4,
+              "amount": 0.5,
               "unit": "l",
               "price": 12
             },
@@ -1735,7 +1735,7 @@
           "variants": [
             {
               "label": null,
-              "amount": 0.4,
+              "amount": 0.5,
               "unit": "l",
               "price": 12
             },
@@ -2132,7 +2132,7 @@
             "tr": "",
             "auto": ""
           },
-          "price": 15,
+          "price": 16,
           "priceFrom": false,
           "amount": null,
           "unit": null,
@@ -2156,7 +2156,7 @@
             "tr": "",
             "auto": ""
           },
-          "price": 15,
+          "price": 16,
           "priceFrom": false,
           "amount": null,
           "unit": null,
@@ -2180,7 +2180,7 @@
             "tr": "",
             "auto": ""
           },
-          "price": 15,
+          "price": 16,
           "priceFrom": false,
           "amount": null,
           "unit": null,
@@ -2273,7 +2273,7 @@
             "tr": "",
             "auto": ""
           },
-          "price": 15,
+          "price": 16,
           "priceFrom": false,
           "amount": null,
           "unit": null,
@@ -2390,7 +2390,7 @@
             "tr": "",
             "auto": ""
           },
-          "price": 20,
+          "price": 21,
           "priceFrom": false,
           "amount": null,
           "unit": null,
@@ -2414,7 +2414,7 @@
             "tr": "",
             "auto": ""
           },
-          "price": 20,
+          "price": 21,
           "priceFrom": false,
           "amount": null,
           "unit": null,
@@ -2438,7 +2438,7 @@
             "tr": "",
             "auto": ""
           },
-          "price": 20,
+          "price": 21,
           "priceFrom": false,
           "amount": null,
           "unit": null,
@@ -2462,13 +2462,13 @@
             "tr": "",
             "auto": ""
           },
-          "price": 20,
+          "price": 21,
           "priceFrom": false,
           "amount": null,
           "unit": null,
           "variants": [],
           "photo": "",
-          "hidden": false
+          "hidden": true
         },
         {
           "id": "tea-ginger-bites",
@@ -2486,13 +2486,13 @@
             "tr": "",
             "auto": ""
           },
-          "price": 20,
+          "price": 21,
           "priceFrom": false,
           "amount": null,
           "unit": null,
           "variants": [],
           "photo": "",
-          "hidden": false
+          "hidden": true
         }
       ]
     },
@@ -2537,7 +2537,7 @@
           "unit": null,
           "variants": [],
           "photo": "",
-          "hidden": false
+          "hidden": true
         },
         {
           "id": "milkshake-snickers",

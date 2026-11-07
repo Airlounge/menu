@@ -5,32 +5,36 @@
     "ru": "Снэки",
     "en": "Snacks",
     "ka": "სნექები",
-    "tr": "Atıştırmalık"
+    "tr": "Atıştırmalık",
+    "auto": ""
   },
+  "menuLabel": false,
   "tabLabel": {
     "ru": "Снэки",
     "en": "Snacks",
     "ka": "სნექები",
-    "tr": "Çerez"
+    "tr": "Çerez",
+    "auto": ""
   },
-  "menuLabel": false,
   "sections": [
     {
       "id": "snacks",
-      "icon": "snack",
       "layout": "list",
       "title": {
         "ru": "Снэки",
         "en": "Snacks",
         "ka": "წასახემსებელი",
-        "tr": "Atıştırmalıklar"
+        "tr": "Atıştırmalıklar",
+        "auto": ""
       },
       "note": {
         "ru": "",
         "en": "",
         "ka": "",
-        "tr": ""
+        "tr": "",
+        "auto": ""
       },
+      "icon": "snack",
       "items": [
         {
           "id": "jerky",
@@ -38,20 +42,23 @@
             "ru": "Джерки",
             "en": "Jerky",
             "ka": "ჯერკი",
-            "tr": "Jerky"
+            "tr": "Jerky",
+            "auto": ""
           },
           "desc": {
             "ru": "куриные, свиные",
             "en": "chicken, pork",
             "ka": "ქათმის, ღორის",
-            "tr": "tavuk, domuz"
+            "tr": "tavuk, domuz",
+            "auto": ""
           },
           "price": 15,
+          "priceFrom": false,
           "amount": 50,
           "unit": "g",
+          "variants": [],
           "photo": "",
-          "hidden": false,
-          "variants": []
+          "hidden": false
         },
         {
           "id": "nuts",
@@ -59,26 +66,28 @@
             "ru": "Орешки",
             "en": "Nuts",
             "ka": "თხილეული",
-            "tr": "Kuruyemiş"
+            "tr": "Kuruyemiş",
+            "auto": ""
           },
           "desc": {
             "ru": "",
             "en": "",
             "ka": "",
-            "tr": ""
+            "tr": "",
+            "auto": ""
           },
           "price": null,
+          "priceFrom": false,
           "amount": null,
           "unit": null,
-          "photo": "",
-          "hidden": false,
           "variants": [
             {
               "label": {
                 "ru": "Арахис",
                 "en": "Peanuts",
                 "ka": "არაქისი",
-                "tr": "Yer fıstığı"
+                "tr": "Yer fıstığı",
+                "auto": ""
               },
               "amount": 100,
               "unit": "g",
@@ -89,13 +98,16 @@
                 "ru": "Фисташки",
                 "en": "Pistachios",
                 "ka": "ფისტა",
-                "tr": "Antep fıstığı"
+                "tr": "Antep fıstığı",
+                "auto": ""
               },
               "amount": 80,
               "unit": "g",
               "price": 13
             }
-          ]
+          ],
+          "photo": "",
+          "hidden": false
         },
         {
           "id": "chips",
@@ -103,17 +115,21 @@
             "ru": "Чипсы",
             "en": "Chips",
             "ka": "ჩიფსები",
-            "tr": "Cips"
+            "tr": "Cips",
+            "auto": ""
           },
           "desc": {
             "ru": "по ассортименту",
             "en": "assorted",
             "ka": "ასორტიმენტში",
-            "tr": "çeşitli"
+            "tr": "çeşitli",
+            "auto": ""
           },
           "price": 8,
+          "priceFrom": false,
           "amount": 75,
           "unit": "g",
+          "variants": [],
           "photo": "",
           "hidden": false
         },
@@ -123,19 +139,23 @@
             "ru": "Сухарики",
             "en": "Croutons",
             "ka": "სუხარიკები",
-            "tr": "Kıtır ekmek"
+            "tr": "Kıtır ekmek",
+            "auto": ""
           },
           "desc": {
             "ru": "по ассортименту",
             "en": "assorted",
             "ka": "ასორტიმენტში",
-            "tr": "çeşitli"
+            "tr": "çeşitli",
+            "auto": ""
           },
           "price": 8,
+          "priceFrom": false,
           "amount": 100,
           "unit": "g",
+          "variants": [],
           "photo": "",
-          "hidden": false
+          "hidden": true
         }
       ]
     }

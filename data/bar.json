@@ -2540,6 +2540,24 @@
           "hidden": true
         },
         {
+          "id": "039369ca3983",
+          "name": {
+            "ru": "Oreo",
+            "en": "Oreo",
+            "ka": "Oreo",
+            "tr": "",
+            "auto": ""
+          },
+          "desc": null,
+          "price": 20,
+          "priceFrom": false,
+          "amount": null,
+          "unit": "",
+          "variants": [],
+          "photo": "",
+          "hidden": false
+        },
+        {
           "id": "milkshake-snickers",
           "name": {
             "ru": "Сникерс",

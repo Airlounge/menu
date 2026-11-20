@@ -2628,6 +2628,24 @@
           "variants": [],
           "photo": "",
           "hidden": false
+        },
+        {
+          "id": "7fd3bb844827",
+          "name": {
+            "ru": "Шоколадный",
+            "en": "Chocolate",
+            "ka": "Chocolate",
+            "tr": "",
+            "auto": ""
+          },
+          "desc": null,
+          "price": 18,
+          "priceFrom": false,
+          "amount": null,
+          "unit": "",
+          "variants": [],
+          "photo": "",
+          "hidden": false
         }
       ]
     },
